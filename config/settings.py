@@ -23,9 +23,20 @@ ALLOWED_HOSTS = [
     "localhost",
     "192.168.1.10",
     'programmingblog.vercel.app',
+    ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    '192.168.1.10',
+    'programmingblog.vercel.app',
+    'programmingblog-git-main-jhkj.vercel.app',
+    'programmingblog-4gin28bt-jhkj.vercel.app',
+]
+    
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://programmingblog.vercel.app',
+    'https://programmingblog-git-main-jhkj.vercel.app',
+    'https://programmingblog-4gin28bt-jhkj.vercel.app',
 ]
 
 
