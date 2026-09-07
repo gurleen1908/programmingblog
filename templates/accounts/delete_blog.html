@@ -1,0 +1,450 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Article{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ============================= */
+/* DELETE PAGE */
+/* ============================= */
+
+.delete-page {
+    min-height: calc(100vh - 70px);
+    background: #f8f9fb;
+    padding: 60px 15px;
+    display: flex;
+    align-items: center;
+}
+
+
+/* ============================= */
+/* DELETE CARD */
+/* ============================= */
+
+.delete-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    background: #ffffff;
+    border: none;
+    border-radius: 18px;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
+
+    overflow: hidden;
+}
+
+
+/* ============================= */
+/* CARD BODY */
+/* ============================= */
+
+.delete-card-body {
+    padding: 45px;
+}
+
+
+/* ============================= */
+/* DELETE ICON */
+/* ============================= */
+
+.delete-icon {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: #fff0f0;
+    color: #dc3545;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+}
+
+
+/* ============================= */
+/* HEADING */
+/* ============================= */
+
+.delete-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #202338;
+    margin-bottom: 10px;
+}
+
+
+/* ============================= */
+/* BLOG TITLE */
+/* ============================= */
+
+.delete-blog-title {
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #202338;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+
+    margin-top: 12px;
+}
+
+
+/* ============================= */
+/* WARNING */
+/* ============================= */
+
+.delete-warning {
+    border-radius: 11px;
+    padding: 15px 17px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+
+/* ============================= */
+/* PASSWORD INPUT */
+/* ============================= */
+
+.password-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 8px;
+}
+
+.password-input {
+    border-radius: 10px;
+    padding: 13px 15px;
+    border: 1px solid #dee2e6;
+
+    font-size: 15px;
+}
+
+.password-input:focus {
+    border-color: #dc3545;
+
+    box-shadow:
+        0 0 0 4px rgba(220, 53, 69, 0.08);
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.delete-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.delete-actions .btn {
+    flex: 1;
+
+    border-radius: 9px;
+
+    padding: 11px 15px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    min-height: 46px;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    .delete-page {
+        padding: 35px 15px;
+        align-items: flex-start;
+    }
+
+    .delete-card {
+        border-radius: 16px;
+    }
+
+    .delete-card-body {
+        padding: 32px 22px;
+    }
+
+    .delete-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 28px;
+        margin-bottom: 17px;
+    }
+
+    .delete-heading {
+        font-size: 25px;
+    }
+
+    .delete-blog-title {
+        font-size: 17px;
+    }
+
+    .delete-warning {
+        font-size: 13px;
+        padding: 14px;
+    }
+
+}
+
+
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 480px) {
+
+    .delete-page {
+        padding: 25px 12px;
+    }
+
+    .delete-card {
+        border-radius: 14px;
+    }
+
+    .delete-card-body {
+        padding: 28px 17px;
+    }
+
+    .delete-icon {
+        width: 62px;
+        height: 62px;
+        font-size: 25px;
+    }
+
+    .delete-heading {
+        font-size: 23px;
+    }
+
+    .delete-card-body > .text-center p {
+        font-size: 13px;
+    }
+
+    .delete-blog-title {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .delete-warning {
+        font-size: 12px;
+        line-height: 1.6;
+        padding: 13px;
+    }
+
+    .password-label {
+        font-size: 13px;
+    }
+
+    .password-input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Buttons stack on phone */
+
+    .delete-actions {
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .delete-actions .btn {
+        width: 100%;
+        flex: none;
+    }
+
+}
+
+
+/* ============================= */
+/* VERY SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 360px) {
+
+    .delete-card-body {
+        padding: 24px 14px;
+    }
+
+    .delete-heading {
+        font-size: 21px;
+    }
+
+    .delete-blog-title {
+        font-size: 15px;
+    }
+
+    .delete-warning {
+        font-size: 11.5px;
+    }
+
+}
+
+</style>
+
+
+<div class="delete-page">
+
+    <div class="container">
+
+        <div class="delete-card">
+
+            <div class="delete-card-body">
+
+
+                <!-- ============================= -->
+                <!-- ICON + HEADING -->
+                <!-- ============================= -->
+
+                <div class="text-center mb-4">
+
+                    <div class="delete-icon">
+
+                        <i class="bi bi-trash3"></i>
+
+                    </div>
+
+
+                    <h3 class="delete-heading">
+
+                        Delete Article?
+
+                    </h3>
+
+
+                    <p class="text-muted mb-2">
+
+                        You are about to permanently delete:
+
+                    </p>
+
+
+                    <div class="delete-blog-title">
+
+                        "{{ blog.title }}"
+
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- WARNING -->
+                <!-- ============================= -->
+
+                <div class="alert alert-warning delete-warning">
+
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+
+                    <strong>This action cannot be undone.</strong>
+
+                    <br>
+
+                    Please enter your password to confirm.
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- FORM -->
+                <!-- ============================= -->
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="password"
+                            class="password-label"
+                        >
+
+                            Enter your password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control password-input"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ============================= -->
+                    <!-- ACTION BUTTONS -->
+                    <!-- ============================= -->
+
+                    <div class="delete-actions">
+
+
+                        <!-- CANCEL -->
+
+                        <a
+                            href="{% url 'my_blogs' %}"
+                            class="btn btn-light border"
+                        >
+
+                            ← Cancel
+
+                        </a>
+
+
+                        <!-- DELETE -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger"
+                        >
+
+                            <i class="bi bi-trash3 me-1"></i>
+
+                            Delete Article
+
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

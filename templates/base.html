@@ -1,0 +1,774 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            CodeBlog
+        {% endblock %}
+    </title>
+
+
+    <!-- ================= BOOTSTRAP CSS ================= -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- ================= GOOGLE FONT ================= -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- ================= HIGHLIGHT.JS ================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
+
+    <!-- ================= CUSTOM CSS ================= -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}">
+
+
+    <!-- ================================================= -->
+    <!-- ================= RESPONSIVE STYLE ============== -->
+    <!-- ================================================= -->
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+
+        /* ================================================= */
+        /* ================= NAVBAR ======================== */
+        /* ================================================= */
+
+        .main-navbar {
+            background: #000000 !important;
+            padding: 13px 0;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* ================= LOGO ================= */
+
+        .navbar-brand {
+            color: #ffffff !important;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            transition: 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .navbar-brand:hover {
+            color: #0d6efd !important;
+            transform: translateY(-1px);
+        }
+
+
+        /* ================= NAV LINKS ================= */
+
+        .main-navbar .nav-link {
+            color: #d1d5db !important;
+            font-weight: 500;
+            margin: 0 5px;
+            transition: 0.3s ease;
+        }
+
+        .main-navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-navbar .nav-link.active {
+            color: #ffffff !important;
+        }
+
+
+        /* ================= SEARCH ================= */
+
+        .navbar-search {
+            width: 230px;
+        }
+
+        .navbar-search .form-control {
+            border-radius: 10px;
+            border: 1px solid #374151;
+            background: #111827;
+            color: white;
+        }
+
+        .navbar-search .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+        .navbar-search .form-control:focus {
+            background: #111827;
+            color: white;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+        }
+
+
+        /* ================= USER BUTTON ================= */
+
+        .user-btn {
+            border-radius: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+
+        /* ================= DROPDOWN ================= */
+
+        .navbar .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+        }
+
+        .navbar .dropdown-item {
+            border-radius: 8px;
+            padding: 9px 12px;
+        }
+
+        .navbar .dropdown-item:hover {
+            background: #f1f5f9;
+        }
+
+
+        /* ================================================= */
+        /* ================= PAGE CONTENT ================== */
+        /* ================================================= */
+
+        main {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+
+        /* ================================================= */
+        /* ================= TABLE RESPONSIVE ============== */
+        /* ================================================= */
+
+        table {
+            max-width: 100%;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+
+        /* ================================================= */
+        /* ================= CODE BLOCK ==================== */
+        /* ================================================= */
+
+        pre {
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: pre;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        code {
+            word-break: normal;
+        }
+
+
+        /* ================================================= */
+        /* ================= FOOTER ========================= */
+        /* ================================================= */
+
+        footer {
+            width: 100%;
+        }
+
+        footer p {
+            word-wrap: break-word;
+        }
+
+
+        /* ================================================= */
+        /* ================= TABLET ========================= */
+        /* ================================================= */
+
+        @media (max-width: 991px) {
+
+            .main-navbar {
+                padding: 11px 0;
+            }
+
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .navbar-search {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .navbar-search .form-control {
+                width: 100%;
+            }
+
+            .main-navbar .nav-link {
+                margin: 4px 0;
+                padding: 9px 5px;
+            }
+
+            .user-btn {
+                width: 100%;
+                margin-top: 8px;
+                text-align: left;
+            }
+
+            .navbar .dropdown {
+                width: 100%;
+                margin-right: 0 !important;
+            }
+
+            .navbar .dropdown-menu {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .navbar .btn {
+                margin-bottom: 8px;
+            }
+
+        }
+
+
+        /* ================================================= */
+        /* ================= MOBILE ========================= */
+        /* ================================================= */
+
+        @media (max-width: 576px) {
+
+            .main-navbar {
+                padding: 10px 0;
+            }
+
+
+            /* LOGO */
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+
+
+            /* NAVBAR CONTAINER */
+
+            .main-navbar .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+
+            /* MOBILE MENU */
+
+            .navbar-collapse {
+                padding-top: 12px;
+            }
+
+
+            /* NAV LINKS */
+
+            .main-navbar .nav-link {
+                font-size: 15px;
+                padding: 10px 5px;
+            }
+
+
+            /* SEARCH */
+
+            .navbar-search {
+                margin: 10px 0;
+            }
+
+            .navbar-search .form-control {
+                min-width: 0;
+                font-size: 14px;
+            }
+
+            .navbar-search .btn {
+                min-width: 45px;
+            }
+
+
+            /* LOGIN / REGISTER */
+
+            .navbar .btn {
+                width: 100%;
+                margin-right: 0 !important;
+            }
+
+
+            /* USER */
+
+            .user-btn {
+                width: 100%;
+            }
+
+
+            /* DROPDOWN */
+
+            .navbar .dropdown-menu {
+                width: 100%;
+            }
+
+
+            /* MAIN CONTENT */
+
+            main {
+                width: 100%;
+            }
+
+
+            /* FOOTER */
+
+            footer {
+                padding: 30px 15px !important;
+            }
+
+            footer h5 {
+                font-size: 18px;
+            }
+
+            footer p {
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+        }
+
+
+        /* ================================================= */
+        /* ================= VERY SMALL PHONE ============== */
+        /* ================================================= */
+
+        @media (max-width: 380px) {
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .navbar-toggler {
+                padding: 5px 8px;
+            }
+
+            footer p {
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- ======================= NAVBAR ====================== -->
+<!-- ===================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark main-navbar sticky-top">
+
+    <div class="container">
+
+
+        <!-- ================= CODEBLOG LOGO ================= -->
+
+        <a
+            class="navbar-brand"
+            href="{% url 'blog:home' %}">
+
+            🚀 CodeBlog
+
+        </a>
+
+
+        <!-- ================= MOBILE MENU ================= -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- ================= NAVBAR CONTENT ================= -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
+
+
+            <!-- ================= LEFT MENU ================= -->
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <!-- HOME -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'blog:home' %}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <!-- ABOUT -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'blog:about' %}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+
+                <!-- CONTACT -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{% url 'blog:contact' %}">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+
+            <!-- ================= SEARCH ================= -->
+
+            <form
+                class="d-flex navbar-search me-3"
+                method="GET"
+                action="{% url 'blog:search' %}">
+
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    name="q"
+                    value="{{ request.GET.q|default:'' }}"
+                    placeholder="Search blogs..."
+                    aria-label="Search">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    🔍
+
+                </button>
+
+            </form>
+
+
+            <!-- ================= USER SECTION ================= -->
+
+            {% if user.is_authenticated %}
+
+
+                <!-- USER DROPDOWN -->
+
+                <div class="dropdown me-2">
+
+                    <button
+                        class="btn btn-outline-light dropdown-toggle user-btn"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                        👤 {{ user.username }}
+
+                    </button>
+
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+
+                        <!-- PROFILE -->
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'profile' %}">
+
+                                👤 My Profile
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- MY BLOGS -->
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'blog:my_blogs' %}">
+
+                                📝 My Blogs
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <hr class="dropdown-divider">
+
+                        </li>
+
+
+                        <!-- LOGOUT -->
+
+                        <li>
+
+                            <a
+                                class="dropdown-item text-danger"
+                                href="{% url 'logout' %}">
+
+                                🚪 Logout
+
+                            </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- ================= LOGIN ================= -->
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn btn-outline-light me-2">
+
+                    Sign In
+
+                </a>
+
+
+                <!-- ================= REGISTER ================= -->
+
+                <a
+                    href="{% url 'register' %}"
+                    class="btn btn-primary">
+
+                    Register
+
+                </a>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ===================================================== -->
+<!-- ================= DJANGO MESSAGES ================== -->
+<!-- ===================================================== -->
+
+{% if messages %}
+
+<div class="container mt-3">
+
+    {% for message in messages %}
+
+        <div
+            class="alert
+            {% if message.tags == 'success' %}
+                alert-success
+            {% elif message.tags == 'error' %}
+                alert-danger
+            {% elif message.tags == 'warning' %}
+                alert-warning
+            {% else %}
+                alert-info
+            {% endif %}
+            alert-dismissible fade show"
+            role="alert">
+
+            {{ message }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+
+<!-- ===================================================== -->
+<!-- ===================== PAGE CONTENT ================= -->
+<!-- ===================================================== -->
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<!-- ===================================================== -->
+<!-- ======================= FOOTER ===================== -->
+<!-- ===================================================== -->
+
+<footer class="bg-dark text-white text-center py-4 mt-5">
+
+    <div class="container">
+
+        <h5 class="fw-bold">
+            🚀 CodeBlog
+        </h5>
+
+        <p class="mb-1">
+            Learn Programming | Python | Django | Web Development
+        </p>
+
+        <p class="text-secondary mb-0">
+            © 2026 CodeBlog. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ===================================================== -->
+<!-- =================== BOOTSTRAP JS =================== -->
+<!-- ===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- ===================================================== -->
+<!-- =================== HIGHLIGHT.JS =================== -->
+<!-- ===================================================== -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js">
+</script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        if (typeof hljs !== "undefined") {
+
+            hljs.highlightAll();
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- ===================================================== -->
+<!-- ===================== CUSTOM JS ==================== -->
+<!-- ===================================================== -->
+
+<script src="{% static 'js/script.js' %}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1000 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact | CodeBlog{% endblock %}
+
+{% block content %}
+
+<style>
+
+    /* =====================================================
+       CONTACT PAGE
+    ===================================================== */
+
+    .contact-page {
+        background: #f8fafc;
+        min-height: 80vh;
+        padding: 70px 0;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: fadeDown 0.7s ease;
+    }
+
+    .contact-badge {
+        display: inline-block;
+        background: #e8f0ff;
+        color: #0d6efd;
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .contact-header h1 {
+        font-size: 46px;
+        font-weight: 700;
+        color: #172554;
+        margin-bottom: 15px;
+    }
+
+    .contact-header p {
+        color: #64748b;
+        font-size: 17px;
+        max-width: 650px;
+        margin: auto;
+        line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       CONTACT CARD
+    ===================================================== */
+
+    .contact-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 22px;
+        padding: 35px;
+        height: 100%;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+        transition: 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.09);
+    }
+
+    .contact-card h3 {
+        color: #172554;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+
+    /* =====================================================
+       CONTACT INFORMATION
+    ===================================================== */
+
+    .contact-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px;
+        background: #f8fafc;
+        border-radius: 14px;
+        margin-bottom: 15px;
+        transition: 0.3s ease;
+        min-width: 0;
+    }
+
+    .contact-info:hover {
+        transform: translateX(6px);
+        background: #eef4ff;
+    }
+
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: 12px;
+        background: #e8f0ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+        transition: 0.3s ease;
+    }
+
+    .contact-info:hover .contact-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .contact-info h6 {
+        margin: 0 0 4px;
+        font-weight: 700;
+        color: #172554;
+    }
+
+    .contact-info p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .contact-info a {
+        color: #2563eb;
+        text-decoration: none;
+        word-break: break-word;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* =====================================================
+       FORM
+    ===================================================== */
+
+    .form-label {
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 13px 15px;
+        border: 1px solid #cbd5e1;
+        transition: 0.25s ease;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-control:hover {
+        border-color: #94a3b8;
+    }
+
+    .form-control:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        transform: translateY(-1px);
+    }
+
+    .form-control.valid {
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+    }
+
+    .form-control.invalid {
+        border-color: #dc2626;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .message-counter {
+        text-align: right;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #64748b;
+    }
+
+
+    /* =====================================================
+       SEND BUTTON
+    ===================================================== */
+
+    .send-btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #0d6efd, #174ea6);
+        color: white;
+        font-weight: 600;
+        transition: 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(13, 110, 253, 0.25);
+    }
+
+    .send-btn:active {
+        transform: scale(0.98);
+    }
+
+    .send-btn:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.4);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        vertical-align: middle;
+        margin-right: 7px;
+    }
+
+
+    /* =====================================================
+       WHATSAPP COMMUNITY
+    ===================================================== */
+
+    .community-box {
+        margin-top: 25px;
+        padding: 25px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #172554, #2563eb);
+        color: white;
+        transition: 0.3s ease;
+    }
+
+    .community-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(37, 99, 235, 0.2);
+    }
+
+    .community-box h4 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .community-box p {
+        opacity: 0.9;
+        line-height: 1.7;
+        font-size: 14px;
+    }
+
+    .community-btn {
+        display: inline-block;
+        background: white;
+        color: #2563eb;
+        padding: 11px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        cursor: pointer;
+        max-width: 100%;
+    }
+
+    .community-btn:hover {
+        transform: translateY(-2px);
+        color: #172554;
+    }
+
+
+    /* =====================================================
+       ALERT
+    ===================================================== */
+
+    .interactive-alert {
+        border-radius: 12px;
+        border: none;
+        animation: slideAlert 0.5s ease;
+        position: relative;
+        padding-right: 45px;
+    }
+
+    .interactive-alert .close-alert {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0.6;
+    }
+
+    .interactive-alert .close-alert:hover {
+        opacity: 1;
+    }
+
+    .alert-success {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .alert-danger {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes fadeDown {
+
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+    @keyframes slideAlert {
+
+        from {
+            opacity: 0;
+            transform: translateY(-15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+    @keyframes spin {
+
+        to {
+            transform: rotate(360deg);
+        }
+
+    }
+
+
+    /* =====================================================
+       TABLET
+    ===================================================== */
+
+    @media (max-width: 991px) {
+
+        .contact-page {
+            padding: 55px 0;
+        }
+
+        .contact-header h1 {
+            font-size: 40px;
+        }
+
+        .contact-card {
+            padding: 30px;
+        }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 768px) {
+
+        .contact-page {
+            padding: 40px 12px;
+        }
+
+        .contact-header {
+            margin-bottom: 30px;
+        }
+
+        .contact-badge {
+            font-size: 13px;
+            padding: 7px 15px;
+        }
+
+        .contact-header h1 {
+            font-size: 32px;
+            line-height: 1.25;
+        }
+
+        .contact-header p {
+            font-size: 15px;
+            line-height: 1.7;
+            padding: 0 5px;
+        }
+
+        .contact-card {
+            padding: 22px 18px;
+            border-radius: 18px;
+        }
+
+        .contact-card h3 {
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            padding: 13px;
+            gap: 12px;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            font-size: 20px;
+        }
+
+        .contact-info h6 {
+            font-size: 14px;
+        }
+
+        .contact-info p {
+            font-size: 13px;
+        }
+
+        .community-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .community-box h4 {
+            font-size: 20px;
+        }
+
+        .community-box p {
+            font-size: 13px;
+        }
+
+        .community-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 14px;
+            font-size: 14px;
+        }
+
+        .form-control {
+            padding: 12px 13px;
+            font-size: 14px;
+        }
+
+        textarea.form-control {
+            min-height: 135px;
+        }
+
+        .send-btn {
+            padding: 12px;
+            font-size: 15px;
+        }
+
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ===================================================== */
+
+    @media (max-width: 400px) {
+
+        .contact-page {
+            padding: 30px 8px;
+        }
+
+        .contact-header h1 {
+            font-size: 28px;
+        }
+
+        .contact-header p {
+            font-size: 14px;
+        }
+
+        .contact-card {
+            padding: 18px 14px;
+        }
+
+        .contact-card h3 {
+            font-size: 19px;
+        }
+
+        .contact-info {
+            padding: 11px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            font-size: 18px;
+        }
+
+        .community-box {
+            padding: 17px;
+        }
+
+        .community-box h4 {
+            font-size: 18px;
+        }
+
+    }
+
+</style>
+
+
+<section class="contact-page">
+
+    <div class="container">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="contact-header">
+
+            <span class="contact-badge">
+                💬 Get In Touch
+            </span>
+
+            <h1>
+                Contact {{ community_name }}
+            </h1>
+
+            <p>
+                Have a question, suggestion or want to become
+                part of our programming community?
+                Send us a message and we'll get back to you.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- ================= LEFT SIDE ================= -->
+
+            <div class="col-lg-5">
+
+                <div class="contact-card">
+
+                    <h3>
+                        Let's Connect 🚀
+                    </h3>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="contact-info">
+
+                        <div class="contact-icon">
+                            📧
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Email
+                            </h6>
+
+                            <p>
+                                <a href="mailto:{{ contact_email }}">
+                                    {{ contact_email }}
+                                </a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMMUNITY -->
+
+                    <div class="contact-info">
+
+                        <div class="contact-icon">
+                            👥
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Community
+                            </h6>
+
+                            <p>
+                                {{ community_name }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PLATFORM -->
+
+                    <div class="contact-info">
+
+                        <div class="contact-icon">
+                            💻
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                Platform
+                            </h6>
+
+                            <p>
+                                Programming & Development
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================= WHATSAPP COMMUNITY ================= -->
+
+                    <div class="community-box">
+
+                        <h4>
+                            Join {{ community_name }} 🎉
+                        </h4>
+
+                        <p>
+                            Learn programming, share ideas,
+                            discover useful tutorials and connect
+                            with other developers and students.
+                        </p>
+
+                        <a
+                            href="https://chat.whatsapp.com/HZOZpYOhfuT5ZzV7gRkE0v"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="community-btn">
+
+                            💬 Join WhatsApp Community →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <div class="col-lg-7">
+
+                <div class="contact-card">
+
+                    <h3>
+                        Send Us a Message ✉️
+                    </h3>
+
+
+                    <!-- ================= DJANGO MESSAGES ================= -->
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <div
+                                class="alert interactive-alert
+                                {% if message.tags == 'success' %}
+                                    alert-success
+                                {% else %}
+                                    alert-danger
+                                {% endif %}"
+                                role="alert">
+
+                                {{ message }}
+
+                                <button
+                                    type="button"
+                                    class="close-alert"
+                                    onclick="this.parentElement.remove()">
+
+                                    ×
+
+                                </button>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+
+                    <!-- ================= FORM ================= -->
+
+                    <form
+                        method="POST"
+                        action="{% url 'blog:contact' %}"
+                        id="contactForm">
+
+                        {% csrf_token %}
+
+
+                        <!-- NAME -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="name"
+                                class="form-label">
+
+                                Your Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                class="form-control"
+                                placeholder="Enter your name"
+                                minlength="2"
+                                required>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="email"
+                                class="form-label">
+
+                                Your Email
+
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                class="form-control"
+                                placeholder="Enter your email"
+                                required>
+
+                        </div>
+
+
+                        <!-- SUBJECT -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="subject"
+                                class="form-label">
+
+                                Subject
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="subject"
+                                id="subject"
+                                class="form-control"
+                                placeholder="What is this about?"
+                                minlength="3"
+                                required>
+
+                        </div>
+
+
+                        <!-- MESSAGE -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="message"
+                                class="form-label">
+
+                                Message
+
+                            </label>
+
+                            <textarea
+                                name="message"
+                                id="message"
+                                class="form-control"
+                                placeholder="Write your message..."
+                                minlength="10"
+                                maxlength="1000"
+                                required></textarea>
+
+                            <div class="message-counter">
+
+                                <span id="charCount">0</span>/1000 characters
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="send-btn"
+                            id="sendBtn">
+
+                            <span id="buttonText">
+                                📩 Send Message
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form =
+        document.getElementById("contactForm");
+
+    const sendBtn =
+        document.getElementById("sendBtn");
+
+    const buttonText =
+        document.getElementById("buttonText");
+
+    const messageBox =
+        document.getElementById("message");
+
+    const charCount =
+        document.getElementById("charCount");
+
+    if (!form || !sendBtn || !buttonText || !messageBox) {
+        return;
+    }
+
+    const inputs =
+        form.querySelectorAll("input, textarea");
+
+
+    /* =================================================
+       CHARACTER COUNTER
+    ================================================= */
+
+    messageBox.addEventListener("input", function () {
+
+        charCount.textContent =
+            this.value.length;
+
+    });
+
+
+    /* =================================================
+       LIVE VALIDATION
+    ================================================= */
+
+    inputs.forEach(function (input) {
+
+        input.addEventListener("input", function () {
+
+            if (this.checkValidity()) {
+
+                this.classList.remove("invalid");
+
+                this.classList.add("valid");
+
+            } else {
+
+                this.classList.remove("valid");
+
+                this.classList.add("invalid");
+
+            }
+
+        });
+
+
+        input.addEventListener("blur", function () {
+
+            if (!this.checkValidity()) {
+
+                this.classList.add("invalid");
+
+            }
+
+        });
+
+    });
+
+
+    /* =================================================
+       FORM SUBMIT
+    ================================================= */
+
+    form.addEventListener("submit", function (event) {
+
+        if (!form.checkValidity()) {
+
+            event.preventDefault();
+
+            form.reportValidity();
+
+            return;
+
+        }
+
+
+        /* Prevent double click */
+
+        sendBtn.disabled = true;
+
+
+        buttonText.innerHTML =
+            '<span class="spinner"></span> Sending...';
+
+    });
+
+
+    /* =================================================
+       AUTO HIDE ALERT
+    ================================================= */
+
+    const alerts =
+        document.querySelectorAll(".interactive-alert");
+
+
+    alerts.forEach(function (alert) {
+
+        setTimeout(function () {
+
+            alert.style.opacity = "0";
+
+            alert.style.transform =
+                "translateY(-10px)";
+
+            alert.style.transition =
+                "0.4s ease";
+
+
+            setTimeout(function () {
+
+                alert.remove();
+
+            }, 400);
+
+        }, 5000);
+
+    });
+
+});
+
+</script>
+
+
+{% endblock %}

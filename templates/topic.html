@@ -1,0 +1,701 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ topic.title }} | CodeBlog{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   TOPIC HERO
+===================================================== */
+
+.topic-hero {
+    background: linear-gradient(135deg, #f5f8ff, #eef4ff);
+    padding: 80px 0;
+}
+
+.topic-icon {
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 22px;
+    font-size: 48px;
+    margin-bottom: 25px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.topic-hero h1 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 18px;
+}
+
+.topic-hero p {
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #64748b;
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.topic-section {
+    padding: 75px 0;
+}
+
+.section-label {
+    color: #0d6efd;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title {
+    font-size: 38px;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+.section-description {
+    color: #64748b;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   LEARNING CARDS
+===================================================== */
+
+.topic-card {
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.09);
+    border-color: #dbe5ff;
+}
+
+.topic-card-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border-radius: 15px;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.topic-card h3 {
+    color: #111827;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.topic-card p {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   ARTICLE CARD
+===================================================== */
+
+.article-card {
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+}
+
+.article-meta {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.article-card h3 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.article-card h3 a {
+    color: #111827;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.article-card h3 a:hover {
+    color: #0d6efd;
+}
+
+.article-description {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.read-link {
+    margin-top: auto;
+    color: #0d6efd;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.read-link:hover {
+    color: #174ea6;
+    padding-left: 4px;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-topic {
+    background: #ffffff;
+    padding: 60px 25px;
+    text-align: center;
+    border: 1px dashed #cbd5e1;
+    border-radius: 20px;
+}
+
+.empty-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.empty-topic h3 {
+    color: #111827;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.empty-topic p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.topic-cta {
+    padding: 75px 0;
+}
+
+.cta-box {
+    background: linear-gradient(135deg, #0d6efd, #174ea6);
+    color: white;
+    padding: 55px 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(13, 110, 253, 0.15);
+}
+
+.cta-box h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    max-width: 650px;
+    margin: 0 auto 25px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+.cta-box .btn {
+    background: white;
+    color: #0d6efd;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.cta-box .btn:hover {
+    transform: translateY(-2px);
+    color: #174ea6;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.topic-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.topic-buttons .btn {
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .topic-hero {
+        padding: 55px 15px;
+    }
+
+    .topic-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 38px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    .topic-hero h1 {
+        font-size: 36px;
+    }
+
+    .topic-hero p {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .topic-section {
+        padding: 55px 15px;
+    }
+
+    .section-title {
+        font-size: 30px;
+    }
+
+    .topic-card {
+        padding: 25px;
+    }
+
+    .article-card {
+        padding: 23px;
+    }
+
+    .topic-cta {
+        padding: 55px 15px;
+    }
+
+    .cta-box {
+        padding: 40px 20px;
+    }
+
+    .cta-box h2 {
+        font-size: 28px;
+    }
+
+    .topic-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .topic-buttons .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .topic-hero h1 {
+        font-size: 31px;
+    }
+
+    .topic-hero p {
+        font-size: 15px;
+    }
+
+    .section-title {
+        font-size: 27px;
+    }
+
+    .article-card h3 {
+        font-size: 20px;
+    }
+
+    .empty-topic {
+        padding: 45px 18px;
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     TOPIC HERO
+===================================================== -->
+
+<section class="topic-hero">
+
+    <div class="container">
+
+        <div class="topic-icon">
+            {{ topic.icon }}
+        </div>
+
+        <h1>
+            {{ topic.title }}
+        </h1>
+
+        <p>
+            {{ topic.description }}
+        </p>
+
+
+        <div class="topic-buttons">
+
+            <a
+                href="#articles"
+                class="btn btn-primary">
+
+                Explore Articles →
+
+            </a>
+
+
+            <a
+                href="{% url 'blog:home' %}#categories"
+                class="btn btn-outline-dark">
+
+                ← All Topics
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHAT YOU WILL LEARN
+===================================================== -->
+
+<section class="topic-section">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <div class="section-label">
+                Learning Path
+            </div>
+
+            <h2 class="section-title">
+                What You'll Learn
+            </h2>
+
+            <p class="section-description">
+                Build practical knowledge and strengthen your
+                programming skills step by step.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- CORE CONCEPTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="topic-card">
+
+                    <div class="topic-card-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Core Concepts
+                    </h3>
+
+                    <p>
+                        Understand the fundamentals and important
+                        concepts required to work confidently
+                        with {{ topic.title }}.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRACTICAL DEVELOPMENT -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="topic-card">
+
+                    <div class="topic-card-icon">
+                        🛠️
+                    </div>
+
+                    <h3>
+                        Practical Development
+                    </h3>
+
+                    <p>
+                        Learn through examples, practical tutorials
+                        and project-based development.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- REAL PROJECTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="topic-card">
+
+                    <div class="topic-card-icon">
+                        🚀
+                    </div>
+
+                    <h3>
+                        Real Projects
+                    </h3>
+
+                    <p>
+                        Apply your knowledge by building useful
+                        projects and solving real-world problems.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARTICLES
+===================================================== -->
+
+<section
+    class="topic-section bg-light"
+    id="articles">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <div class="section-label">
+                CodeBlog Resources
+            </div>
+
+            <h2 class="section-title">
+                {{ topic.title }} Articles
+            </h2>
+
+            <p class="section-description">
+                Explore tutorials and resources related to
+                {{ topic.title }}.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% for blog in blogs %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <article class="article-card">
+
+
+                        <!-- META -->
+
+                        <div class="article-meta">
+
+                            📅
+                            {{ blog.created_at|date:"d M Y" }}
+
+                            &nbsp; • &nbsp;
+
+                            👁️
+                            {{ blog.views }}
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <h3>
+
+                            <a
+                                href="{% url 'blog:blog_detail' blog.slug %}">
+
+                                {{ blog.title }}
+
+                            </a>
+
+                        </h3>
+
+
+                        <!-- DESCRIPTION -->
+
+                        {% if blog.short_description %}
+
+                            <p class="article-description">
+
+                                {{ blog.short_description|truncatewords:22 }}
+
+                            </p>
+
+                        {% endif %}
+
+
+                        <!-- READ -->
+
+                        <a
+                            href="{% url 'blog:blog_detail' blog.slug %}"
+                            class="read-link">
+
+                            Read Article →
+
+                        </a>
+
+                    </article>
+
+                </div>
+
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="empty-topic">
+
+                        <div class="empty-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            No Articles Found
+                        </h3>
+
+                        <p>
+                            We haven't published any articles about
+                            {{ topic.title }} yet.
+                        </p>
+
+                        <a
+                            href="{% url 'blog:home' %}#blogs"
+                            class="btn btn-primary">
+
+                            Explore All Articles
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="topic-cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Ready to keep learning? 🚀
+            </h2>
+
+            <p>
+                Explore more programming tutorials,
+                discover new technologies and continue
+                building your skills.
+            </p>
+
+            <a
+                href="{% url 'blog:home' %}#blogs"
+                class="btn">
+
+                Explore All Articles →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

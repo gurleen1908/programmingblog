@@ -1,0 +1,738 @@
+{% extends 'base.html' %}
+
+{% block title %}Search | CodeBlog{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   SEARCH PAGE
+===================================================== */
+
+.search-page {
+    min-height: 80vh;
+    background: #f8fafc;
+    padding: 60px 0 80px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.search-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.search-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.search-header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 10px;
+}
+
+.search-header p {
+    color: #64748b;
+    font-size: 17px;
+}
+
+.search-header strong {
+    color: #172554;
+}
+
+
+/* =====================================================
+   SEARCH BOX
+===================================================== */
+
+.search-box-wrapper {
+    max-width: 720px;
+    margin: 0 auto 45px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    padding: 7px;
+
+    border-radius: 15px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.search-box input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 13px 16px;
+
+    font-size: 15px;
+
+    color: #172554;
+
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.search-box button {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.search-box button:hover {
+    background: #172554;
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   RESULT COUNT
+===================================================== */
+
+.result-count {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+.result-count strong {
+    color: #172554;
+}
+
+
+/* =====================================================
+   SEARCH CARD
+===================================================== */
+
+.search-card {
+    height: 100%;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid #e2e8f0;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: all 0.3s ease;
+}
+
+.search-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.13);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.search-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-image {
+    width: 100%;
+
+    height: 210px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform 0.4s ease;
+}
+
+.search-card:hover .search-image {
+    transform: scale(1.05);
+}
+
+
+.search-image-placeholder {
+    width: 100%;
+
+    height: 210px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #2563eb
+    );
+
+    color: white;
+
+    font-size: 50px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.search-content {
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.search-category {
+    display: inline-block;
+
+    width: fit-content;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    padding: 6px 12px;
+
+    border-radius: 50px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 14px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.search-title {
+    font-size: 21px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    margin-bottom: 12px;
+}
+
+.search-title a {
+    color: #172554;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.search-title a:hover {
+    color: #2563eb;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.search-description {
+    color: #64748b;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   META
+===================================================== */
+
+.search-meta {
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   READ ARTICLE
+===================================================== */
+
+.read-link {
+    margin-top: auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    width: fit-content;
+
+    color: #2563eb;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.25s ease;
+}
+
+.read-link:hover {
+    color: #172554;
+
+    gap: 9px;
+}
+
+
+/* =====================================================
+   NO RESULTS
+===================================================== */
+
+.no-results {
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 18px;
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+.no-results-icon {
+    font-size: 60px;
+
+    margin-bottom: 15px;
+}
+
+.no-results h3 {
+    color: #172554;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    color: #64748b;
+
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-home-btn {
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .search-page {
+        padding: 40px 15px 60px;
+    }
+
+    .search-header h1 {
+        font-size: 34px;
+    }
+
+    .search-header p {
+        font-size: 15px;
+    }
+
+    .search-image,
+    .search-image-placeholder {
+        height: 190px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .search-header h1 {
+        font-size: 29px;
+    }
+
+    .search-icon {
+        font-size: 38px;
+    }
+
+    .search-box {
+        padding: 5px;
+    }
+
+    .search-box input {
+        min-width: 0;
+
+        padding: 11px 10px;
+
+        font-size: 14px;
+    }
+
+    .search-box button {
+        padding: 11px 14px;
+
+        font-size: 13px;
+    }
+
+    .search-content {
+        padding: 20px;
+    }
+
+}
+
+</style>
+
+
+<section class="search-page">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================= -->
+
+        <div class="search-header">
+
+            <div class="search-icon">
+                🔍
+            </div>
+
+            <h1>
+                Search Results
+            </h1>
+
+
+            {% if query %}
+
+                <p>
+                    Showing results for
+                    <strong>"{{ query }}"</strong>
+                </p>
+
+            {% else %}
+
+                <p>
+                    Search for programming tutorials,
+                    technologies and articles.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =================================================
+             SEARCH FORM
+        ================================================= -->
+
+        <div class="search-box-wrapper">
+
+            <form
+                method="GET"
+                action="{% url 'blog:search' %}"
+                class="search-box"
+            >
+
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Search Python, Django, JavaScript..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    🔍 Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- =================================================
+             RESULT COUNT
+        ================================================= -->
+
+        {% if query %}
+
+            <div class="result-count">
+
+                Found
+
+                <strong>
+                    {{ blogs|length }}
+                </strong>
+
+                article{{ blogs|length|pluralize }}
+
+                for
+
+                <strong>
+                    "{{ query }}"
+                </strong>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             SEARCH RESULTS
+        ================================================= -->
+
+        <div class="row g-4">
+
+
+            {% for blog in blogs %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <article class="search-card">
+
+
+                        <!-- ================= IMAGE ================= -->
+
+                        <div class="search-image-wrapper">
+
+                            {% if blog.image %}
+
+                                <img
+                                    src="{{ blog.image.url }}"
+                                    alt="{{ blog.title }}"
+                                    class="search-image"
+                                >
+
+                            {% else %}
+
+                                <div class="search-image-placeholder">
+                                    💻
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- ================= CONTENT ================= -->
+
+                        <div class="search-content">
+
+
+                            <!-- CATEGORY -->
+
+                            {% if blog.category %}
+
+                                <span class="search-category">
+
+                                    📂 {{ blog.category }}
+
+                                </span>
+
+                            {% endif %}
+
+
+                            <!-- TITLE -->
+
+                            <h2 class="search-title">
+
+                                <a
+                                    href="{% url 'blog:blog_detail' blog.slug %}"
+                                >
+
+                                    {{ blog.title }}
+
+                                </a>
+
+                            </h2>
+
+
+                            <!-- DESCRIPTION -->
+
+                            {% if blog.short_description %}
+
+                                <p class="search-description">
+
+                                    {{ blog.short_description|truncatewords:22 }}
+
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- META -->
+
+                            <div class="search-meta">
+
+                                👤 {{ blog.author }}
+
+                                &nbsp; • &nbsp;
+
+                                📅 {{ blog.created_at|date:"d M Y" }}
+
+                                &nbsp; • &nbsp;
+
+                                👁️ {{ blog.views }} views
+
+                            </div>
+
+
+                            <!-- READ -->
+
+                            <a
+                                href="{% url 'blog:blog_detail' blog.slug %}"
+                                class="read-link"
+                            >
+
+                                Read Article →
+
+                            </a>
+
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+            {% empty %}
+
+
+                <!-- =================================================
+                     NO RESULTS
+                ================================================= -->
+
+                <div class="col-12">
+
+                    <div class="no-results">
+
+                        <div class="no-results-icon">
+                            😕
+                        </div>
+
+
+                        <h3>
+                            No Articles Found
+                        </h3>
+
+
+                        {% if query %}
+
+                            <p>
+
+                                We couldn't find any articles
+                                matching
+
+                                <strong>
+                                    "{{ query }}"
+                                </strong>.
+
+                            </p>
+
+                        {% else %}
+
+                            <p>
+                                Enter a programming topic
+                                in the search box above.
+                            </p>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{% url 'blog:home' %}"
+                            class="btn btn-primary back-home-btn"
+                        >
+
+                            ← Back to Home
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

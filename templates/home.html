@@ -1,0 +1,981 @@
+{% extends 'base.html' %}
+
+{% block title %}CodeBlog | Learn Programming{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================================================= */
+/* ================= HERO ========================== */
+/* ================================================= */
+
+.hero {
+    padding-top: 70px !important;
+    padding-bottom: 70px !important;
+}
+
+.hero h1 {
+    line-height: 1.2;
+}
+
+.hero p {
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+    min-width: 170px;
+}
+
+
+/* ================================================= */
+/* ================= STATS ========================= */
+/* ================================================= */
+
+.hero .row.mt-5 {
+    row-gap: 25px;
+}
+
+.hero h3 {
+    font-size: 28px;
+}
+
+
+/* ================================================= */
+/* ================= TOPIC CARDS ================== */
+/* ================================================= */
+
+.topic-card {
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.topic-card:hover {
+    transform: translateY(-7px);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.12) !important;
+}
+
+.topic-card:hover .text-primary {
+    text-decoration: underline;
+}
+
+
+/* ================================================= */
+/* ================= BLOG CARDS =================== */
+/* ================================================= */
+
+#blogs article {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+#blogs article:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.10) !important;
+}
+
+#blogs article img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-title {
+    word-break: break-word;
+}
+
+
+/* ================================================= */
+/* ================= CTA =========================== */
+/* ================================================= */
+
+.codeblog-cta {
+    padding: 55px 35px;
+}
+
+.codeblog-cta p {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+
+/* ================================================= */
+/* ================= TABLET ======================== */
+/* ================================================= */
+
+@media (max-width: 991px) {
+
+    .hero {
+        padding-top: 55px !important;
+        padding-bottom: 55px !important;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+}
+
+
+/* ================================================= */
+/* ================= MOBILE ======================== */
+/* ================================================= */
+
+@media (max-width: 767px) {
+
+    .hero {
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+    }
+
+    .hero .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .hero-badge {
+        font-size: 13px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.25;
+    }
+
+    .hero p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .hero .row.mt-5 {
+        margin-top: 40px !important;
+    }
+
+    .hero h3 {
+        font-size: 22px;
+    }
+
+    .hero small {
+        font-size: 12px;
+    }
+
+
+    /* ================= TOPICS ================= */
+
+    #categories {
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+    }
+
+    #categories .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    #categories h2 {
+        font-size: 28px;
+    }
+
+    #categories .text-center p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .topic-card .card-body {
+        padding: 25px !important;
+    }
+
+    .topic-card h4 {
+        font-size: 21px;
+    }
+
+    .topic-card p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    /* ================= BLOGS ================= */
+
+    #blogs {
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+    }
+
+    #blogs .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    #blogs h2 {
+        font-size: 28px;
+    }
+
+    #blogs > .container > .mb-5 {
+        margin-bottom: 30px !important;
+    }
+
+    #blogs article img {
+        height: 190px;
+    }
+
+    #blogs article .card-body {
+        padding: 22px !important;
+    }
+
+    #blogs article h4 {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    #blogs article p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    #blogs article .small {
+        font-size: 12px;
+    }
+
+
+    /* ================= CTA ================= */
+
+    .codeblog-cta {
+        padding: 35px 22px !important;
+    }
+
+    .codeblog-cta h2 {
+        font-size: 26px;
+        line-height: 1.4;
+    }
+
+    .codeblog-cta p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .codeblog-cta .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* ================================================= */
+/* ================= SMALL MOBILE ================== */
+/* ================================================= */
+
+@media (max-width: 400px) {
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero h3 {
+        font-size: 20px;
+    }
+
+    .hero small {
+        font-size: 11px;
+    }
+
+    #categories h2,
+    #blogs h2 {
+        font-size: 25px;
+    }
+
+    .topic-card .fs-1 {
+        font-size: 2.4rem !important;
+    }
+
+    #blogs article img {
+        height: 175px;
+    }
+
+}
+
+
+/* ================================================= */
+/* ================= PREVENT OVERFLOW ============== */
+/* ================================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+</style>
+
+
+<!-- ================================================= -->
+<!-- ================= HERO ========================== -->
+<!-- ================================================= -->
+
+<section class="hero py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center text-center">
+
+            <div class="col-lg-9">
+
+                <span class="hero-badge">
+                    🚀 Learn • Build • Grow
+                </span>
+
+
+                <h1 class="display-4 fw-bold mt-3">
+
+                    Learn Programming.<br>
+
+                    Build Real Projects.
+
+                </h1>
+
+
+                <p class="lead text-muted mt-3">
+
+                    Practical tutorials, programming guides and
+                    real-world projects to help you become a better developer.
+
+                </p>
+
+
+                <div class="hero-buttons mt-4">
+
+                    <a
+                        href="#blogs"
+                        class="btn btn-primary btn-lg me-2">
+
+                        Start Learning →
+
+                    </a>
+
+
+                    <a
+                        href="#categories"
+                        class="btn btn-outline-dark btn-lg">
+
+                        Explore Topics
+
+                    </a>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- ================= DYNAMIC STATS ================= -->
+                <!-- ================================================= -->
+
+                <div class="row justify-content-center mt-5">
+
+
+                    <!-- ARTICLES -->
+
+                    <div class="col-4 col-md-2">
+
+                        <h3 class="fw-bold mb-0">
+
+                            {{ total_blogs }}+
+
+                        </h3>
+
+                        <small class="text-muted">
+
+                            Articles
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- TOPICS -->
+
+                    <div class="col-4 col-md-2">
+
+                        <h3 class="fw-bold mb-0">
+
+                            {{ total_categories }}+
+
+                        </h3>
+
+                        <small class="text-muted">
+
+                            Topics
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- VIEWS -->
+
+                    <div class="col-4 col-md-2">
+
+                        <h3 class="fw-bold mb-0">
+
+                            {{ total_views }}+
+
+                        </h3>
+
+                        <small class="text-muted">
+
+                            Views
+
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= POPULAR TOPICS ================ -->
+<!-- ================================================= -->
+
+<section
+    id="categories"
+    class="py-5 bg-light">
+
+    <div class="container">
+
+
+        <div class="text-center mb-5">
+
+            <span class="text-primary fw-semibold">
+
+                EXPLORE
+
+            </span>
+
+
+            <h2 class="fw-bold mt-2">
+
+                Popular Topics
+
+            </h2>
+
+
+            <p class="text-muted">
+
+                Learn the technologies that developers
+                use every day.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <!-- PYTHON -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:topic' 'python' %}"
+                    class="text-decoration-none">
+
+                    <div
+                        class="card h-100 border-0 shadow-sm topic-card">
+
+                        <div class="card-body p-4">
+
+
+                            <div class="fs-1 mb-3">
+
+                                🐍
+
+                            </div>
+
+
+                            <h4 class="fw-bold text-dark">
+
+                                Python
+
+                            </h4>
+
+
+                            <p class="text-muted">
+
+                                Learn Python programming
+                                from basics to advanced concepts.
+
+                            </p>
+
+
+                            <span class="text-primary fw-semibold">
+
+                                Explore Python →
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- DJANGO -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:topic' 'django' %}"
+                    class="text-decoration-none">
+
+                    <div
+                        class="card h-100 border-0 shadow-sm topic-card">
+
+                        <div class="card-body p-4">
+
+
+                            <div class="fs-1 mb-3">
+
+                                🌐
+
+                            </div>
+
+
+                            <h4 class="fw-bold text-dark">
+
+                                Django
+
+                            </h4>
+
+
+                            <p class="text-muted">
+
+                                Build powerful web applications
+                                using Django and Python.
+
+                            </p>
+
+
+                            <span class="text-primary fw-semibold">
+
+                                Explore Django →
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- JAVASCRIPT -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:topic' 'javascript' %}"
+                    class="text-decoration-none">
+
+                    <div
+                        class="card h-100 border-0 shadow-sm topic-card">
+
+                        <div class="card-body p-4">
+
+
+                            <div class="fs-1 mb-3">
+
+                                ⚡
+
+                            </div>
+
+
+                            <h4 class="fw-bold text-dark">
+
+                                JavaScript
+
+                            </h4>
+
+
+                            <p class="text-muted">
+
+                                Create interactive and modern
+                                web experiences.
+
+                            </p>
+
+
+                            <span class="text-primary fw-semibold">
+
+                                Explore JavaScript →
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SQL -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:topic' 'sql' %}"
+                    class="text-decoration-none">
+
+                    <div
+                        class="card h-100 border-0 shadow-sm topic-card">
+
+                        <div class="card-body p-4">
+
+
+                            <div class="fs-1 mb-3">
+
+                                🗄️
+
+                            </div>
+
+
+                            <h4 class="fw-bold text-dark">
+
+                                SQL
+
+                            </h4>
+
+
+                            <p class="text-muted">
+
+                                Understand databases, queries
+                                and data management.
+
+                            </p>
+
+
+                            <span class="text-primary fw-semibold">
+
+                                Explore SQL →
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= LATEST BLOGS ================== -->
+<!-- ================================================= -->
+
+<section
+    id="blogs"
+    class="py-5">
+
+    <div class="container">
+
+
+        <div class="mb-5">
+
+            <span class="text-primary fw-semibold">
+
+                FROM THE BLOG
+
+            </span>
+
+
+            <h2 class="fw-bold mt-2 mb-1">
+
+                Latest Articles
+
+            </h2>
+
+
+            <p class="text-muted">
+
+                Fresh tutorials and programming guides.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            {% for blog in blogs %}
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <article
+                    class="card h-100 border-0 shadow-sm">
+
+
+                    <!-- BLOG IMAGE -->
+
+                    {% if blog.image %}
+
+                        <img
+                            src="{{ blog.image.url }}"
+                            class="card-img-top"
+                            style="height:200px; object-fit:cover;"
+                            alt="{{ blog.title }}">
+
+                    {% else %}
+
+                        <div
+                            class="bg-light d-flex align-items-center justify-content-center"
+                            style="height:200px;">
+
+                            <span class="fs-1">
+
+                                💻
+
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- BLOG CONTENT -->
+
+                    <div class="card-body p-4">
+
+
+                        <!-- CATEGORY -->
+
+                        <span
+                            class="badge bg-primary mb-3">
+
+                            {{ blog.category }}
+
+                        </span>
+
+
+
+                        <!-- TITLE -->
+
+                        <h4 class="fw-bold blog-title">
+
+                            <a
+                                href="{% url 'blog:blog_detail' blog.slug %}"
+                                class="text-dark text-decoration-none">
+
+                                {{ blog.title }}
+
+                            </a>
+
+                        </h4>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p class="text-muted">
+
+                            {{ blog.short_description|truncatewords:20 }}
+
+                        </p>
+
+
+
+                        <!-- META -->
+
+                        <div class="small text-muted mb-3">
+
+                            👤 {{ blog.author }}
+
+                            &nbsp; • &nbsp;
+
+                            📅
+
+                            {{ blog.created_at|date:"d M Y" }}
+
+                        </div>
+
+
+
+                        <!-- READ BUTTON -->
+
+                        <a
+                            href="{% url 'blog:blog_detail' blog.slug %}"
+                            class="fw-semibold text-primary text-decoration-none">
+
+                            Read Article →
+
+                        </a>
+
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div class="col-12">
+
+                <div
+                    class="text-center py-5">
+
+
+                    <div class="fs-1 mb-3">
+
+                        📚
+
+                    </div>
+
+
+                    <h4>
+
+                        No articles yet
+
+                    </h4>
+
+
+                    <p class="text-muted">
+
+                        Add your first blog from
+                        the Django Admin Panel.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= CODEBLOG CTA ================== -->
+<!-- ================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div
+            class="bg-dark text-white rounded-4 codeblog-cta p-5 text-center">
+
+
+            <h2 class="fw-bold">
+
+                Keep Learning with CodeBlog 🚀
+
+            </h2>
+
+
+            <p class="text-light">
+
+                Explore programming tutorials, build real projects
+                and improve your coding skills with CodeBlog.
+
+            </p>
+
+
+            <a
+                href="#blogs"
+                class="btn btn-primary btn-lg mt-2">
+
+                📚 Explore Articles →
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

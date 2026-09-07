@@ -1,0 +1,639 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile | CodeBlog{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   PROFILE PAGE
+===================================================== */
+
+.profile-page {
+    min-height: calc(100vh - 70px);
+    background: #f8f9fb;
+    padding: 60px 0 80px;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.profile-label {
+    display: inline-block;
+    color: #0d6efd;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.profile-header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #202338;
+    margin-bottom: 10px;
+}
+
+.profile-header p {
+    color: #6c757d;
+    font-size: 15px;
+    margin: 0;
+}
+
+
+/* =====================================================
+   PROFILE CARD
+===================================================== */
+
+.profile-card {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =====================================================
+   PROFILE COVER
+===================================================== */
+
+.profile-cover {
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #2563eb,
+        #4f46e5
+    );
+
+    padding: 45px 25px;
+    text-align: center;
+    color: white;
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+.profile-avatar {
+    width: 95px;
+    height: 95px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.18);
+
+    border: 3px solid rgba(255,255,255,0.8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 42px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.18);
+}
+
+
+.profile-cover h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 5px;
+
+    word-break: break-word;
+}
+
+.profile-cover p {
+    margin: 0;
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PROFILE BODY
+===================================================== */
+
+.profile-body {
+    padding: 40px;
+}
+
+.profile-body h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #202338;
+    margin-bottom: 28px;
+}
+
+
+/* =====================================================
+   INFORMATION ROW
+===================================================== */
+
+.info-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+
+    gap: 20px;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.info-row:last-of-type {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #202338;
+    font-size: 14px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 13px;
+
+    border-radius: 50px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-active {
+    color: #198754;
+    background: #eaf8f0;
+}
+
+.status-inactive {
+    color: #dc3545;
+    background: #fdecec;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+
+/* =====================================================
+   ACTION AREA
+===================================================== */
+
+.profile-actions {
+    margin-top: 30px;
+    padding-top: 25px;
+
+    border-top: 1px solid #e9ecef;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.profile-action:hover {
+    transform: translateY(-2px);
+}
+
+
+/* PRIMARY */
+
+.profile-primary {
+    background: #0d6efd;
+    color: white;
+}
+
+.profile-primary:hover {
+    background: #0b5ed7;
+    color: white;
+}
+
+
+/* OUTLINE */
+
+.profile-outline {
+    background: white;
+    color: #343a40;
+    border: 1px solid #dee2e6;
+}
+
+.profile-outline:hover {
+    background: #f8f9fa;
+    color: #212529;
+}
+
+
+/* DANGER */
+
+.profile-danger {
+    background: white;
+    color: #dc3545;
+    border: 1px solid #f1b0b7;
+}
+
+.profile-danger:hover {
+    background: #fff5f5;
+    color: #dc3545;
+}
+
+
+/* =====================================================
+   ACCOUNT NOTE
+===================================================== */
+
+.account-note {
+    margin-top: 25px;
+
+    padding: 15px 17px;
+
+    border-radius: 10px;
+
+    background: #f8f9fa;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+        padding: 40px 15px 60px;
+    }
+
+    .profile-header {
+        margin-bottom: 30px;
+    }
+
+    .profile-header h1 {
+        font-size: 30px;
+    }
+
+    .profile-header p {
+        font-size: 14px;
+    }
+
+    .profile-cover {
+        padding: 38px 20px;
+    }
+
+    .profile-avatar {
+        width: 85px;
+        height: 85px;
+        font-size: 36px;
+    }
+
+    .profile-cover h2 {
+        font-size: 23px;
+    }
+
+    .profile-body {
+        padding: 28px 22px;
+    }
+
+    .profile-body h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .info-row {
+        grid-template-columns: 1fr;
+        gap: 7px;
+        padding: 15px 0;
+    }
+
+    .info-label {
+        font-size: 12px;
+    }
+
+    .info-value {
+        font-size: 14px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .profile-action {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .profile-page {
+        padding: 30px 12px 50px;
+    }
+
+    .profile-header h1 {
+        font-size: 27px;
+    }
+
+    .profile-cover {
+        padding: 32px 15px;
+    }
+
+    .profile-avatar {
+        width: 78px;
+        height: 78px;
+        font-size: 32px;
+    }
+
+    .profile-cover h2 {
+        font-size: 21px;
+    }
+
+    .profile-body {
+        padding: 24px 18px;
+    }
+
+    .account-note {
+        font-size: 11px;
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     PROFILE PAGE
+===================================================== -->
+
+<section class="profile-page">
+
+    <div class="container">
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <div class="profile-header">
+
+            <span class="profile-label">
+                ACCOUNT
+            </span>
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Manage and view your CodeBlog account information.
+            </p>
+
+        </div>
+
+
+        <!-- ================= PROFILE CARD ================= -->
+
+        <div class="profile-card">
+
+
+            <!-- ================= COVER ================= -->
+
+            <div class="profile-cover">
+
+                <div class="profile-avatar">
+                    👤
+                </div>
+
+                <h2>
+                    {{ user.username }}
+                </h2>
+
+                <p>
+                    CodeBlog Member
+                </p>
+
+            </div>
+
+
+            <!-- ================= BODY ================= -->
+
+            <div class="profile-body">
+
+                <h3>
+                    Account Information
+                </h3>
+
+
+                <!-- USERNAME -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Username
+                    </div>
+
+                    <div class="info-value">
+                        {{ user.username }}
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Email Address
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if user.email %}
+
+                            {{ user.email }}
+
+                        {% else %}
+
+                            Not provided
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- MEMBER SINCE -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Member Since
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ user.date_joined|date:"d M Y" }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACCOUNT STATUS -->
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        Account Status
+                    </div>
+
+                    <div class="info-value">
+
+                        {% if user.is_active %}
+
+                            <span class="status-badge status-active">
+
+                                <span class="status-dot"></span>
+
+                                Active
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-inactive">
+
+                                <span class="status-dot"></span>
+
+                                Inactive
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= ACTIONS ================= -->
+
+                <div class="profile-actions">
+
+
+                    <!-- MY BLOGS -->
+
+                    <a
+                        href="{% url 'my_blogs' %}"
+                        class="profile-action profile-primary"
+                    >
+
+                        📝 My Blogs
+
+                    </a>
+
+
+                    <!-- HOME -->
+
+                    <a
+                        href="{% url 'blog:home' %}"
+                        class="profile-action profile-outline"
+                    >
+
+                        🏠 Back to Home
+
+                    </a>
+
+
+                    <!-- LOGOUT -->
+
+                    <a
+                        href="{% url 'logout' %}"
+                        class="profile-action profile-danger"
+                    >
+
+                        🚪 Logout
+
+                    </a>
+
+
+                </div>
+
+
+                <!-- ================= NOTE ================= -->
+
+                <div class="account-note">
+
+                    🔒 Your account information is displayed
+                    securely and is only visible to you.
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

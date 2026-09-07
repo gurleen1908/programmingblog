@@ -1,0 +1,1264 @@
+{% extends 'base.html' %}
+
+{% block title %}About | CodeBlog{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   ABOUT PAGE
+===================================================== */
+
+.about-page {
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.about-hero {
+    padding: 90px 0 80px;
+    background: linear-gradient(135deg, #f8faff, #eef4ff);
+}
+
+.about-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: #e8f0ff;
+    color: #0d6efd;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.about-hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #111827;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.about-hero p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #6b7280;
+    max-width: 650px;
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   HERO BUTTONS
+===================================================== */
+
+.about-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.about-buttons a {
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.about-buttons a:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   HERO ICON
+===================================================== */
+
+.about-icon-box {
+    width: 175px;
+    height: 175px;
+    margin: auto;
+
+    border-radius: 38px;
+    background: white;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.10);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 75px;
+
+    transition: all 0.4s ease;
+}
+
+.about-icon-box:hover {
+    transform: translateY(-8px) rotate(2deg);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =====================================================
+   COMMON SECTION
+===================================================== */
+
+.about-section {
+    padding: 80px 0;
+}
+
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+.section-label {
+    color: #0d6efd;
+    font-size: 14px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+.section-heading {
+    font-size: 38px;
+    font-weight: 800;
+    color: #111827;
+
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: #6b7280;
+    max-width: 650px;
+
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   INFO CARDS
+===================================================== */
+
+.info-card {
+    height: 100%;
+
+    padding: 35px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+
+    background: white;
+
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.08);
+
+    border-color: #dbeafe;
+}
+
+.info-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eef4ff;
+
+    font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    color: #111827;
+    font-size: 23px;
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+.info-card p {
+    color: #6b7280;
+
+    line-height: 1.8;
+
+    margin-bottom: 0;
+}
+
+
+/* =====================================================
+   TECHNOLOGY CARDS
+===================================================== */
+
+.tech-card {
+    display: block;
+
+    height: 100%;
+
+    padding: 28px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    background: white;
+
+    color: #111827;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.09);
+
+    border-color: #0d6efd;
+
+    color: #111827;
+}
+
+.tech-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f1f5f9;
+
+    border-radius: 15px;
+
+    font-size: 32px;
+
+    margin-bottom: 18px;
+
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover .tech-icon {
+    transform: scale(1.08);
+}
+
+.tech-card h4 {
+    font-size: 21px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.tech-card p {
+    color: #6b7280;
+
+    line-height: 1.6;
+
+    margin-bottom: 15px;
+}
+
+.tech-link {
+    color: #0d6efd;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ARTICLE CARDS
+===================================================== */
+
+.article-card {
+    height: 100%;
+
+    padding: 25px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    background: white;
+
+    transition: all 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.08);
+
+    border-color: #dbeafe;
+}
+
+.article-meta {
+    color: #6b7280;
+
+    font-size: 13px;
+
+    margin-bottom: 12px;
+}
+
+.article-card h4 {
+    font-size: 19px;
+    line-height: 1.45;
+
+    margin-bottom: 12px;
+}
+
+.article-card h4 a {
+    color: #111827;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: color 0.2s ease;
+}
+
+.article-card h4 a:hover {
+    color: #0d6efd;
+}
+
+.article-card p {
+    color: #6b7280;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+.read-link {
+    color: #0d6efd;
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+    text-decoration: none;
+}
+
+.read-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.cta-section {
+    padding: 70px 0;
+}
+
+.cta-box {
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #174ea6
+    );
+
+    color: white;
+
+    padding: 60px 40px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 45px rgba(13, 110, 253, 0.18);
+}
+
+.cta-box h2 {
+    font-size: 36px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    max-width: 650px;
+
+    margin: 0 auto 25px;
+
+    opacity: 0.9;
+
+    line-height: 1.7;
+}
+
+.cta-box .btn {
+    background: white;
+
+    color: #0d6efd;
+
+    border: none;
+
+    padding: 12px 25px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+.cta-box .btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 991px) {
+
+    .about-hero {
+        padding: 70px 0;
+    }
+
+    .about-hero h1 {
+        font-size: 44px;
+    }
+
+    .about-hero p {
+        font-size: 17px;
+    }
+
+    .about-icon-box {
+        margin-top: 40px;
+    }
+
+    .about-section {
+        padding: 65px 0;
+    }
+
+    .section-heading {
+        font-size: 34px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .about-hero {
+        padding: 55px 0;
+    }
+
+    .about-hero .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .about-badge {
+        font-size: 13px;
+        padding: 7px 14px;
+    }
+
+    .about-hero h1 {
+        font-size: 36px;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    .about-hero p {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .about-buttons {
+        margin-top: 25px;
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .about-buttons a {
+        width: 100%;
+
+        text-align: center;
+
+        margin: 0;
+    }
+
+    .about-icon-box {
+        width: 140px;
+        height: 140px;
+
+        border-radius: 30px;
+
+        font-size: 60px;
+
+        margin-top: 45px;
+    }
+
+    .about-section {
+        padding: 55px 0;
+    }
+
+    .section-label {
+        font-size: 12px;
+    }
+
+    .section-heading {
+        font-size: 29px;
+        line-height: 1.25;
+    }
+
+    .section-description {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .info-card {
+        padding: 25px;
+
+        border-radius: 17px;
+    }
+
+    .info-card h3 {
+        font-size: 21px;
+    }
+
+    .info-card p {
+        font-size: 14px;
+    }
+
+    .tech-card {
+        padding: 24px;
+
+        border-radius: 16px;
+    }
+
+    .tech-card h4 {
+        font-size: 20px;
+    }
+
+    .tech-card p {
+        font-size: 14px;
+    }
+
+    .article-card {
+        padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .article-card h4 {
+        font-size: 18px;
+    }
+
+    .article-card p {
+        font-size: 14px;
+    }
+
+    .cta-section {
+        padding: 50px 15px;
+    }
+
+    .cta-box {
+        padding: 40px 22px;
+
+        border-radius: 20px;
+    }
+
+    .cta-box h2 {
+        font-size: 28px;
+        line-height: 1.3;
+    }
+
+    .cta-box p {
+        font-size: 14px;
+    }
+
+    .cta-box .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .about-hero h1 {
+        font-size: 31px;
+    }
+
+    .about-hero p {
+        font-size: 15px;
+    }
+
+    .section-heading {
+        font-size: 27px;
+    }
+
+    .about-icon-box {
+        width: 125px;
+        height: 125px;
+
+        font-size: 52px;
+    }
+
+}
+
+
+/* =====================================================
+   TOUCH DEVICES
+===================================================== */
+
+@media (hover: none) {
+
+    .info-card:hover,
+    .tech-card:hover,
+    .article-card:hover,
+    .about-icon-box:hover,
+    .cta-box .btn:hover {
+        transform: none;
+    }
+
+}
+
+</style>
+
+
+<div class="about-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="about-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- LEFT -->
+
+            <div class="col-lg-8">
+
+                <span class="about-badge">
+
+                    🚀 About CodeBlog
+
+                </span>
+
+
+                <h1>
+
+                    A place to learn,
+                    build and grow.
+
+                </h1>
+
+
+                <p>
+
+                    CodeBlog is a programming platform created
+                    for developers and students who want to learn
+                    programming through practical tutorials,
+                    real projects and useful development resources.
+
+                </p>
+
+
+                <div class="about-buttons">
+
+                    <a
+                        href="#mission"
+                        class="btn btn-primary">
+
+                        Our Mission
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'blog:home' %}#blogs"
+                        class="btn btn-outline-dark">
+
+                        Explore Articles →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="col-lg-4 text-center">
+
+                <div class="about-icon-box">
+
+                    💻
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MISSION
+===================================================== -->
+
+<section
+    class="about-section"
+    id="mission">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label">
+
+                What We Believe
+
+            </div>
+
+
+            <h2 class="section-heading">
+
+                Learn by Building
+
+            </h2>
+
+
+            <p class="section-description mx-auto">
+
+                We believe programming becomes easier when
+                you learn concepts and immediately apply them
+                to real-world projects.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- MISSION -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+
+                        🎯
+
+                    </div>
+
+
+                    <h3>
+
+                        Our Mission
+
+                    </h3>
+
+
+                    <p>
+
+                        To make programming education simple,
+                        practical and accessible for everyone.
+                        CodeBlog focuses on useful tutorials
+                        instead of unnecessary complexity.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- VISION -->
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+
+                        💡
+
+                    </div>
+
+
+                    <h3>
+
+                        Our Vision
+
+                    </h3>
+
+
+                    <p>
+
+                        To create a learning community where
+                        students and developers can build their
+                        skills, create projects and become
+                        confident developers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TECHNOLOGIES
+===================================================== -->
+
+<section class="about-section bg-light">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label">
+
+                Technologies
+
+            </div>
+
+
+            <h2 class="section-heading">
+
+                Explore What You Can Learn
+
+            </h2>
+
+
+            <p class="section-description mx-auto">
+
+                Choose a technology and discover related
+                programming articles.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- PYTHON -->
+
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:search' %}?q=Python"
+                    class="tech-card">
+
+                    <div class="tech-icon">
+
+                        🐍
+
+                    </div>
+
+
+                    <h4>
+
+                        Python
+
+                    </h4>
+
+
+                    <p>
+
+                        Programming, automation
+                        and backend development.
+
+                    </p>
+
+
+                    <span class="tech-link">
+
+                        Explore Python →
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- DJANGO -->
+
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:search' %}?q=Django"
+                    class="tech-card">
+
+                    <div class="tech-icon">
+
+                        🌐
+
+                    </div>
+
+
+                    <h4>
+
+                        Django
+
+                    </h4>
+
+
+                    <p>
+
+                        Build powerful web applications
+                        using Python.
+
+                    </p>
+
+
+                    <span class="tech-link">
+
+                        Explore Django →
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- JAVASCRIPT -->
+
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:search' %}?q=JavaScript"
+                    class="tech-card">
+
+                    <div class="tech-icon">
+
+                        ⚡
+
+                    </div>
+
+
+                    <h4>
+
+                        JavaScript
+
+                    </h4>
+
+
+                    <p>
+
+                        Create interactive and dynamic
+                        web experiences.
+
+                    </p>
+
+
+                    <span class="tech-link">
+
+                        Explore JavaScript →
+
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SQL -->
+
+            <div class="col-12 col-sm-6 col-lg-3">
+
+                <a
+                    href="{% url 'blog:search' %}?q=SQL"
+                    class="tech-card">
+
+                    <div class="tech-icon">
+
+                        🗄️
+
+                    </div>
+
+
+                    <h4>
+
+                        SQL
+
+                    </h4>
+
+
+                    <p>
+
+                        Learn databases, queries
+                        and data management.
+
+                    </p>
+
+
+                    <span class="tech-link">
+
+                        Explore SQL →
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LATEST ARTICLES
+===================================================== -->
+
+<section class="about-section">
+
+    <div class="container">
+
+
+        <div
+            class="d-flex justify-content-between align-items-end mb-5"
+            style="gap:20px;">
+
+            <div>
+
+                <div class="section-label">
+
+                    Latest Content
+
+                </div>
+
+
+                <h2 class="section-heading mb-0">
+
+                    Recent Articles
+
+                </h2>
+
+            </div>
+
+
+            <a
+                href="{% url 'blog:home' %}#blogs"
+                class="btn btn-outline-primary"
+                style="border-radius:10px;font-weight:600;">
+
+                View All →
+
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% for blog in latest_blogs %}
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="article-card">
+
+
+                    <div class="article-meta">
+
+                        📅
+                        {{ blog.created_at|date:"d M Y" }}
+
+                        &nbsp; • &nbsp;
+
+                        👁️
+                        {{ blog.views }}
+
+                    </div>
+
+
+                    <h4>
+
+                        <a
+                            href="{% url 'blog:blog_detail' blog.slug %}">
+
+                            {{ blog.title }}
+
+                        </a>
+
+                    </h4>
+
+
+                    <p>
+
+                        {{ blog.short_description|truncatewords:20 }}
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'blog:blog_detail' blog.slug %}"
+                        class="read-link">
+
+                        Read Article →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <div
+                    class="alert alert-light border text-center">
+
+                    No articles available yet.
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+
+                Ready to start learning? 🚀
+
+            </h2>
+
+
+            <p>
+
+                Explore practical programming tutorials,
+                discover new technologies and start building
+                your next project today.
+
+            </p>
+
+
+            <a
+                href="{% url 'blog:home' %}#blogs"
+                class="btn">
+
+                Start Learning →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     MOBILE FIX FOR ARTICLE HEADER
+===================================================== -->
+
+<style>
+
+@media (max-width: 576px) {
+
+    .about-section .d-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .about-section .d-flex > .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+
+{% endblock %}

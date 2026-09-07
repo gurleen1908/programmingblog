@@ -1,0 +1,2769 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Blog | CodeBlog{% endblock %}
+
+{% block content %}
+
+<div class="create-page">
+
+    <div class="container py-5">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="create-header mb-5">
+
+            <div class="header-content">
+
+                <div class="page-label">
+                    CREATE ARTICLE
+                </div>
+
+                <h1 class="page-title">
+                    Write something worth reading.
+                </h1>
+
+                <p class="page-subtitle">
+                    Share your knowledge, tutorials and ideas with the CodeBlog community.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'blog:my_blogs' %}"
+                class="back-btn">
+
+                ← My Blogs
+
+            </a>
+
+        </div>
+
+
+        <!-- ================= MAIN CARD ================= -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-9 col-lg-10">
+
+                <div class="editor-card">
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        id="createBlogForm">
+
+                        {% csrf_token %}
+
+
+                        <!-- ================= ARTICLE INFO ================= -->
+
+                        <div class="section-heading">
+
+                            <div class="section-number">
+                                01
+                            </div>
+
+                            <div>
+                                <h5>Article Information</h5>
+
+                                <p>
+                                    Start with a clear title and category.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="form-group mb-4">
+
+                            <label for="title">
+                                Blog Title
+                            </label>
+
+                            <input
+                                type="text"
+                                name="title"
+                                id="title"
+                                class="professional-input"
+                                placeholder="Give your article a great title..."
+                                maxlength="200"
+                                required>
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="form-group mb-4">
+
+                            <label for="categorySelect">
+                                Category
+                            </label>
+
+                            <select
+                                name="category"
+                                id="categorySelect"
+                                class="professional-input"
+                                required>
+
+                                <option
+                                    value=""
+                                    selected
+                                    disabled>
+
+                                    Select a category
+
+                                </option>
+
+                                <option value="Python">
+                                    🐍 Python
+                                </option>
+
+                                <option value="Django">
+                                    🌐 Django
+                                </option>
+
+                                <option value="JavaScript">
+                                    ⚡ JavaScript
+                                </option>
+
+                                <option value="SQL">
+                                    🗄️ SQL
+                                </option>
+
+                                <option value="Web Development">
+                                    💻 Web Development
+                                </option>
+
+                                <option value="Machine Learning">
+                                    🤖 Machine Learning
+                                </option>
+
+                                <option value="Cyber Security">
+                                    🔐 Cyber Security
+                                </option>
+
+                                <option value="Other">
+                                    ✨ Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- CUSTOM CATEGORY -->
+
+                        <div
+                            id="customCategoryBox"
+                            class="custom-category-box">
+
+                            <label for="customCategory">
+                                Your Category
+                            </label>
+
+                            <input
+                                type="text"
+                                name="custom_category"
+                                id="customCategory"
+                                class="professional-input"
+                                placeholder="e.g. Cloud Computing"
+                                maxlength="100">
+
+                        </div>
+
+
+                        <!-- ================= DESCRIPTION ================= -->
+
+                        <div class="section-heading section-top">
+
+                            <div class="section-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Article Introduction
+                                </h5>
+
+                                <p>
+                                    Give readers a quick idea about your article.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group mb-4">
+
+                            <div class="label-row">
+
+                                <label for="shortDescription">
+                                    Short Description
+                                </label>
+
+                                <span id="descriptionCounter">
+                                    0 / 500
+                                </span>
+
+                            </div>
+
+                            <textarea
+                                name="short_description"
+                                id="shortDescription"
+                                class="professional-input"
+                                rows="4"
+                                maxlength="500"
+                                placeholder="Briefly describe what readers will learn..."
+                                required></textarea>
+
+                        </div>
+
+
+                        <!-- ================= ARTICLE ================= -->
+
+                        <div class="section-heading section-top">
+
+                            <div class="section-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Write Your Article
+                                </h5>
+
+                                <p>
+                                    Write your article normally. Click Code whenever
+                                    you want to insert programming code.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================= EDITOR ================= -->
+
+                        <div class="article-editor-wrapper">
+
+                            <!-- TOOLBAR -->
+
+                            <div class="editor-toolbar">
+
+                                <div class="toolbar-left">
+
+                                    <button
+                                        type="button"
+                                        class="toolbar-btn"
+                                        id="paragraphBtn">
+
+                                        ¶ Paragraph
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="toolbar-btn code-toolbar-btn"
+                                        id="codeBtn">
+
+                                        &lt;/&gt; Code
+
+                                    </button>
+
+                                </div>
+
+                                <div class="toolbar-info">
+
+                                    💡 Add code using the Code button
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EDITOR -->
+
+                            <div
+                                id="articleEditor"
+                                class="article-editor"
+                                contenteditable="true"
+                                data-placeholder="Start writing your article here...">
+                            </div>
+
+
+                            <!-- HIDDEN CONTENT -->
+
+                            <textarea
+                                name="content"
+                                id="content"
+                                hidden
+                                required></textarea>
+
+
+                            <!-- EDITOR FOOTER -->
+
+                            <div class="editor-footer">
+
+                                <span>
+                                    Write your article normally.
+                                </span>
+
+                                <span>
+                                    <strong>Code</strong>
+                                    creates a separate code block.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================= CODE HELP ================= -->
+
+                        <div class="code-help-box">
+
+                            <div class="code-help-icon">
+                                &lt;/&gt;
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    How to add code
+                                </strong>
+
+                                <p>
+                                    Click the <b>&lt;/&gt; Code</b> button,
+                                    select a language, paste your code and click
+                                    <b>Insert Code</b>.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================= IMAGE ================= -->
+
+                        <div class="section-heading section-top">
+
+                            <div class="section-number">
+                                04
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Featured Image
+                                </h5>
+
+                                <p>
+                                    Add an image that represents your article.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="upload-box">
+
+                            <input
+                                type="file"
+                                name="image"
+                                id="image"
+                                accept="image/*"
+                                hidden>
+
+                            <label
+                                for="image"
+                                class="upload-label">
+
+                                <div class="upload-icon">
+                                    ↑
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Choose a featured image
+                                    </strong>
+
+                                    <span>
+                                        PNG, JPG, JPEG or WEBP
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- IMAGE PREVIEW -->
+
+                        <div
+                            id="imagePreviewContainer"
+                            class="preview-container">
+
+                            <div class="preview-header">
+
+                                <span>
+                                    Image Preview
+                                </span>
+
+                                <button
+                                    type="button"
+                                    id="removeImage"
+                                    class="remove-image">
+
+                                    Remove
+
+                                </button>
+
+                            </div>
+
+                            <img
+                                id="imagePreview"
+                                src=""
+                                alt="Preview">
+
+                        </div>
+
+
+                        <!-- ================= PUBLISH ================= -->
+
+                        <div class="publish-area">
+
+                            <div>
+
+                                <strong>
+                                    Ready to publish?
+                                </strong>
+
+                                <p>
+                                    Your article will be added to your blog.
+                                </p>
+
+                            </div>
+
+
+                            <div class="publish-buttons">
+
+                                <a
+                                    href="{% url 'blog:my_blogs' %}"
+                                    class="cancel-btn">
+
+                                    Cancel
+
+                                </a>
+
+                                <button
+                                    type="submit"
+                                    id="publishButton"
+                                    class="publish-btn">
+
+                                    Publish Article →
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- CODE MODAL -->
+<!-- ================================================= -->
+
+<div
+    class="code-modal-overlay"
+    id="codeModal">
+
+    <div class="code-modal">
+
+        <div class="code-modal-header">
+
+            <div class="modal-title-area">
+
+                <div class="modal-code-icon">
+                    &lt;/&gt;
+                </div>
+
+                <div>
+
+                    <h4>
+                        Add Code Block
+                    </h4>
+
+                    <p>
+                        Select a language and paste your code.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeCodeModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- LANGUAGE -->
+
+        <div class="modal-field">
+
+            <label for="codeLanguage">
+                Programming Language
+            </label>
+
+            <select
+                id="codeLanguage"
+                class="professional-input">
+
+                <option value="python">
+                    Python
+                </option>
+
+                <option value="javascript">
+                    JavaScript
+                </option>
+
+                <option value="html">
+                    HTML
+                </option>
+
+                <option value="css">
+                    CSS
+                </option>
+
+                <option value="sql">
+                    SQL
+                </option>
+
+                <option value="java">
+                    Java
+                </option>
+
+                <option value="cpp">
+                    C++
+                </option>
+
+                <option value="c">
+                    C
+                </option>
+
+                <option value="php">
+                    PHP
+                </option>
+
+                <option value="bash">
+                    Bash
+                </option>
+
+                <option value="json">
+                    JSON
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- CODE INPUT -->
+
+        <div class="modal-field">
+
+            <label for="codeInput">
+                Your Code
+            </label>
+
+            <textarea
+                id="codeInput"
+                class="code-input"
+                placeholder="Paste your code here..."></textarea>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-cancel"
+                id="cancelCode">
+
+                Cancel
+
+            </button>
+
+            <button
+                type="button"
+                class="modal-insert"
+                id="insertCode">
+
+                Insert Code →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- CSS -->
+<!-- ================================================= -->
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ================= PAGE ================= */
+
+.create-page {
+
+    background: #f8f9fb;
+
+    min-height: calc(100vh - 70px);
+
+}
+
+
+/* ================= HEADER ================= */
+
+.create-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 25px;
+
+}
+
+
+.page-label {
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.page-title {
+
+    font-size: 36px;
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 8px;
+
+    color: #202338;
+
+}
+
+
+.page-subtitle {
+
+    color: #6c757d;
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+}
+
+
+.back-btn {
+
+    text-decoration: none;
+
+    color: #495057;
+
+    border: 1px solid #dee2e6;
+
+    background: white;
+
+    padding: 10px 18px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    transition: .2s ease;
+
+}
+
+
+.back-btn:hover {
+
+    background: #f1f3f5;
+
+    color: #0d6efd;
+
+}
+
+
+/* ================= CARD ================= */
+
+.editor-card {
+
+    background: white;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 16px;
+
+    padding: 40px;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,.04);
+
+}
+
+
+/* ================= SECTION ================= */
+
+.section-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-top {
+
+    margin-top: 45px;
+
+}
+
+
+.section-number {
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 8px;
+
+    background: #eef5ff;
+
+    color: #0d6efd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    flex-shrink: 0;
+
+}
+
+
+.section-heading h5 {
+
+    margin: 0 0 4px;
+
+    font-weight: 700;
+
+    color: #202338;
+
+}
+
+
+.section-heading p {
+
+    margin: 0;
+
+    color: #868e96;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ================= FORM ================= */
+
+.form-group label,
+.modal-field label {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #343a40;
+
+    margin-bottom: 9px;
+
+}
+
+
+.professional-input {
+
+    width: 100%;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 9px;
+
+    padding: 13px 15px;
+
+    font-size: 14px;
+
+    background: white;
+
+    outline: none;
+
+    color: #343a40;
+
+}
+
+
+.professional-input:focus {
+
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.08);
+
+}
+
+
+textarea.professional-input {
+
+    resize: vertical;
+
+    min-height: 100px;
+
+}
+
+
+/* ================= CUSTOM CATEGORY ================= */
+
+.custom-category-box {
+
+    display: none;
+
+    margin-top: -8px;
+
+    margin-bottom: 20px;
+
+    padding: 18px;
+
+    background: #f8f9fa;
+
+    border: 1px dashed #ced4da;
+
+    border-radius: 10px;
+
+}
+
+
+.custom-category-box.show {
+
+    display: block;
+
+}
+
+
+/* ================= COUNTER ================= */
+
+.label-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+}
+
+
+.label-row span {
+
+    color: #868e96;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+}
+
+
+/* ================= EDITOR ================= */
+
+.article-editor-wrapper {
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background: white;
+
+}
+
+
+.editor-toolbar {
+
+    min-height: 52px;
+
+    border-bottom: 1px solid #e9ecef;
+
+    background: #f8f9fa;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 8px 12px;
+
+    gap: 10px;
+
+}
+
+
+.toolbar-left {
+
+    display: flex;
+
+    gap: 6px;
+
+}
+
+
+.toolbar-btn {
+
+    border: 1px solid #dee2e6;
+
+    background: white;
+
+    color: #343a40;
+
+    border-radius: 7px;
+
+    padding: 8px 12px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+}
+
+
+.toolbar-btn:hover {
+
+    background: #f1f3f5;
+
+}
+
+
+.code-toolbar-btn {
+
+    background: #212529;
+
+    color: white;
+
+}
+
+
+.code-toolbar-btn:hover {
+
+    background: #343a40;
+
+}
+
+
+.toolbar-info {
+
+    color: #868e96;
+
+    font-size: 11px;
+
+}
+
+
+.article-editor {
+
+    min-height: 400px;
+
+    padding: 20px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    color: #343a40;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.article-editor:empty:before {
+
+    content: attr(data-placeholder);
+
+    color: #adb5bd;
+
+    pointer-events: none;
+
+}
+
+
+.article-editor p {
+
+    margin: 0 0 15px;
+
+}
+
+
+/* ================= CODE BLOCK ================= */
+
+.editor-code-block {
+
+    margin: 22px 0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background: #1e1e1e;
+
+    border: 1px solid #343a40;
+
+}
+
+
+.editor-code-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 9px 14px;
+
+    background: #252526;
+
+    color: #adb5bd;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.editor-code-language {
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+
+}
+
+
+.editor-code-block pre {
+
+    margin: 0;
+
+    padding: 18px;
+
+    overflow-x: auto;
+
+    color: #e6edf3;
+
+    font-family:
+        Consolas,
+        Monaco,
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    white-space: pre;
+
+}
+
+
+.editor-code-block code {
+
+    font-family: inherit;
+
+}
+
+
+/* ================= EDITOR FOOTER ================= */
+
+.editor-footer {
+
+    border-top: 1px solid #e9ecef;
+
+    padding: 9px 14px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #868e96;
+
+    font-size: 11px;
+
+    gap: 10px;
+
+}
+
+
+/* ================= HELP ================= */
+
+.code-help-box {
+
+    margin-top: 18px;
+
+    border: 1px solid #e1e5e9;
+
+    border-radius: 11px;
+
+    padding: 18px;
+
+    background: #f8f9fa;
+
+    display: flex;
+
+    gap: 15px;
+
+    align-items: center;
+
+}
+
+
+.code-help-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 9px;
+
+    background: #212529;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-family: Consolas, monospace;
+
+    font-weight: 700;
+
+    flex-shrink: 0;
+
+}
+
+
+.code-help-box strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.code-help-box p {
+
+    margin: 0;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+
+/* ================= MODAL ================= */
+
+.code-modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(15,23,42,.55);
+
+    backdrop-filter: blur(3px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+}
+
+
+.code-modal-overlay.show {
+
+    display: flex;
+
+}
+
+
+.code-modal {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25);
+
+    overflow-x: hidden;
+
+}
+
+
+.code-modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #e9ecef;
+
+    gap: 15px;
+
+}
+
+
+.modal-title-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.modal-code-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    background: #212529;
+
+    color: white;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-family: Consolas, monospace;
+
+    font-weight: 700;
+
+    flex-shrink: 0;
+
+}
+
+
+.code-modal-header h4 {
+
+    margin: 0 0 3px;
+
+    font-size: 17px;
+
+}
+
+
+.code-modal-header p {
+
+    margin: 0;
+
+    color: #868e96;
+
+    font-size: 12px;
+
+}
+
+
+.modal-close {
+
+    border: none;
+
+    background: transparent;
+
+    color: #6c757d;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+}
+
+
+.modal-field {
+
+    padding: 18px 22px 0;
+
+}
+
+
+.code-input {
+
+    width: 100%;
+
+    min-height: 260px;
+
+    resize: vertical;
+
+    border: 1px solid #343a40;
+
+    border-radius: 9px;
+
+    background: #1e1e1e;
+
+    color: #e6edf3;
+
+    padding: 16px;
+
+    outline: none;
+
+    font-family:
+        Consolas,
+        Monaco,
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+.modal-actions {
+
+    padding: 22px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+}
+
+
+.modal-cancel,
+.modal-insert {
+
+    border-radius: 8px;
+
+    padding: 10px 17px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+.modal-cancel {
+
+    background: white;
+
+    border: 1px solid #dee2e6;
+
+}
+
+
+.modal-insert {
+
+    background: #0d6efd;
+
+    border: 1px solid #0d6efd;
+
+    color: white;
+
+}
+
+
+/* ================= IMAGE ================= */
+
+.upload-box {
+
+    border: 1.5px dashed #ced4da;
+
+    border-radius: 12px;
+
+    background: #fafbfc;
+
+}
+
+
+.upload-label {
+
+    min-height: 130px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    cursor: pointer;
+
+    padding: 20px;
+
+}
+
+
+.upload-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 12px;
+
+    background: #eef5ff;
+
+    color: #0d6efd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    flex-shrink: 0;
+
+}
+
+
+.upload-label strong {
+
+    display: block;
+
+    font-size: 14px;
+
+}
+
+
+.upload-label span {
+
+    display: block;
+
+    color: #868e96;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+
+}
+
+
+/* ================= PREVIEW ================= */
+
+.preview-container {
+
+    display: none;
+
+    margin-top: 20px;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+}
+
+
+.preview-container.show {
+
+    display: block;
+
+}
+
+
+.preview-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.remove-image {
+
+    border: none;
+
+    background: none;
+
+    color: #dc3545;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+#imagePreview {
+
+    width: 100%;
+
+    max-height: 320px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+}
+
+
+/* ================= PUBLISH ================= */
+
+.publish-area {
+
+    border-top: 1px solid #e9ecef;
+
+    margin-top: 45px;
+
+    padding-top: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.publish-area strong {
+
+    font-size: 14px;
+
+}
+
+
+.publish-area p {
+
+    color: #868e96;
+
+    font-size: 12px;
+
+    margin: 4px 0 0;
+
+}
+
+
+.publish-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.cancel-btn,
+.publish-btn {
+
+    padding: 11px 20px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+}
+
+
+.cancel-btn {
+
+    color: #495057;
+
+    border: 1px solid #dee2e6;
+
+    background: white;
+
+}
+
+
+.publish-btn {
+
+    border: none;
+
+    background: #0d6efd;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+.publish-btn:disabled {
+
+    opacity: .7;
+
+    cursor: not-allowed;
+
+}
+
+
+/* ================================================= */
+/* TABLET */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+    .create-page {
+
+        min-height: 100vh;
+
+    }
+
+
+    .container.py-5 {
+
+        padding-top: 30px !important;
+
+        padding-bottom: 40px !important;
+
+    }
+
+
+    .create-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        margin-bottom: 30px !important;
+
+    }
+
+
+    .page-title {
+
+        font-size: 29px;
+
+        line-height: 1.25;
+
+        letter-spacing: -.5px;
+
+    }
+
+
+    .page-subtitle {
+
+        font-size: 14px;
+
+    }
+
+
+    .back-btn {
+
+        width: 100%;
+
+        text-align: center;
+
+    }
+
+
+    .editor-card {
+
+        padding: 25px 20px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .section-top {
+
+        margin-top: 35px;
+
+    }
+
+
+    .section-heading {
+
+        gap: 11px;
+
+    }
+
+
+    .section-heading h5 {
+
+        font-size: 16px;
+
+    }
+
+
+    .section-heading p {
+
+        font-size: 12px;
+
+    }
+
+
+    .editor-toolbar {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+    }
+
+
+    .toolbar-left {
+
+        width: 100%;
+
+    }
+
+
+    .toolbar-btn {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+
+    .toolbar-info {
+
+        display: none;
+
+    }
+
+
+    .article-editor {
+
+        min-height: 330px;
+
+        padding: 16px;
+
+        font-size: 14px;
+
+    }
+
+
+    .editor-footer {
+
+        flex-direction: column;
+
+        gap: 4px;
+
+    }
+
+
+    .code-help-box {
+
+        align-items: flex-start;
+
+    }
+
+
+    .publish-area {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .publish-buttons {
+
+        width: 100%;
+
+    }
+
+
+    .cancel-btn,
+    .publish-btn {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+
+    .code-modal-overlay {
+
+        padding: 12px;
+
+    }
+
+
+    .code-modal {
+
+        max-height: 94vh;
+
+        border-radius: 14px;
+
+    }
+
+}
+
+
+/* ================================================= */
+/* MOBILE */
+/* ================================================= */
+
+@media (max-width: 480px) {
+
+    .container.py-5 {
+
+        padding-left: 12px !important;
+
+        padding-right: 12px !important;
+
+    }
+
+
+    .page-label {
+
+        font-size: 11px;
+
+    }
+
+
+    .page-title {
+
+        font-size: 25px;
+
+    }
+
+
+    .page-subtitle {
+
+        font-size: 13px;
+
+    }
+
+
+    .editor-card {
+
+        padding: 20px 14px;
+
+    }
+
+
+    .section-heading {
+
+        gap: 9px;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .section-number {
+
+        width: 30px;
+
+        height: 30px;
+
+        font-size: 11px;
+
+        border-radius: 7px;
+
+    }
+
+
+    .section-heading h5 {
+
+        font-size: 15px;
+
+    }
+
+
+    .section-heading p {
+
+        font-size: 11px;
+
+    }
+
+
+    .professional-input {
+
+        padding: 12px;
+
+        font-size: 13px;
+
+    }
+
+
+    .article-editor {
+
+        min-height: 280px;
+
+        padding: 14px;
+
+        font-size: 14px;
+
+    }
+
+
+    .code-help-box {
+
+        padding: 14px;
+
+        gap: 10px;
+
+    }
+
+
+    .code-help-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 12px;
+
+    }
+
+
+    .code-help-box p {
+
+        font-size: 11px;
+
+    }
+
+
+    .upload-label {
+
+        min-height: 115px;
+
+        padding: 15px;
+
+        justify-content: flex-start;
+
+    }
+
+
+    .upload-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+
+    .upload-label strong {
+
+        font-size: 13px;
+
+    }
+
+
+    .upload-label span {
+
+        font-size: 11px;
+
+    }
+
+
+    .publish-buttons {
+
+        flex-direction: column;
+
+    }
+
+
+    .cancel-btn,
+    .publish-btn {
+
+        width: 100%;
+
+    }
+
+
+    .code-modal-header {
+
+        padding: 17px;
+
+    }
+
+
+    .modal-code-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 12px;
+
+    }
+
+
+    .code-modal-header h4 {
+
+        font-size: 15px;
+
+    }
+
+
+    .code-modal-header p {
+
+        font-size: 10px;
+
+    }
+
+
+    .modal-field {
+
+        padding: 15px 17px 0;
+
+    }
+
+
+    .code-input {
+
+        min-height: 200px;
+
+        font-size: 12px;
+
+    }
+
+
+    .modal-actions {
+
+        padding: 17px;
+
+        flex-direction: column-reverse;
+
+    }
+
+
+    .modal-cancel,
+    .modal-insert {
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* ==========================================
+       CATEGORY
+    ========================================== */
+
+    const categorySelect =
+        document.getElementById("categorySelect");
+
+    const customCategoryBox =
+        document.getElementById("customCategoryBox");
+
+    const customCategory =
+        document.getElementById("customCategory");
+
+
+    categorySelect.addEventListener("change", function () {
+
+        if (this.value === "Other") {
+
+            customCategoryBox.classList.add("show");
+
+            customCategory.required = true;
+
+            customCategory.focus();
+
+        } else {
+
+            customCategoryBox.classList.remove("show");
+
+            customCategory.required = false;
+
+            customCategory.value = "";
+
+        }
+
+    });
+
+
+    /* ==========================================
+       DESCRIPTION COUNTER
+    ========================================== */
+
+    const description =
+        document.getElementById("shortDescription");
+
+    const counter =
+        document.getElementById("descriptionCounter");
+
+
+    description.addEventListener("input", function () {
+
+        counter.textContent =
+            this.value.length + " / 500";
+
+    });
+
+
+    /* ==========================================
+       EDITOR
+    ========================================== */
+
+    const editor =
+        document.getElementById("articleEditor");
+
+    const hiddenContent =
+        document.getElementById("content");
+
+
+    function updateHiddenContent() {
+
+        hiddenContent.value =
+            editor.innerHTML.trim();
+
+    }
+
+
+    /* ==========================================
+       PARAGRAPH BUTTON
+    ========================================== */
+
+    document
+        .getElementById("paragraphBtn")
+        .addEventListener("click", function () {
+
+            editor.focus();
+
+            document.execCommand(
+                "formatBlock",
+                false,
+                "p"
+            );
+
+            updateHiddenContent();
+
+        });
+
+
+    /* ==========================================
+       CODE MODAL
+    ========================================== */
+
+    const codeBtn =
+        document.getElementById("codeBtn");
+
+    const codeModal =
+        document.getElementById("codeModal");
+
+    const closeCodeModal =
+        document.getElementById("closeCodeModal");
+
+    const cancelCode =
+        document.getElementById("cancelCode");
+
+    const insertCode =
+        document.getElementById("insertCode");
+
+    const codeInput =
+        document.getElementById("codeInput");
+
+    const codeLanguage =
+        document.getElementById("codeLanguage");
+
+
+    /* ==========================================
+       OPEN MODAL
+    ========================================== */
+
+    codeBtn.addEventListener("click", function () {
+
+        codeModal.classList.add("show");
+
+        setTimeout(function () {
+
+            codeInput.focus();
+
+        }, 100);
+
+    });
+
+
+    /* ==========================================
+       CLOSE MODAL
+    ========================================== */
+
+    function closeModal() {
+
+        codeModal.classList.remove("show");
+
+        codeInput.value = "";
+
+    }
+
+
+    closeCodeModal.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    cancelCode.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    codeModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === codeModal) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                codeModal.classList.contains("show")
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       INSERT CODE
+    ========================================== */
+
+    insertCode.addEventListener(
+        "click",
+        function () {
+
+            const code =
+                codeInput.value;
+
+            const language =
+                codeLanguage.value;
+
+
+            if (!code.trim()) {
+
+                alert(
+                    "Please paste your code first."
+                );
+
+                codeInput.focus();
+
+                return;
+
+            }
+
+
+            /* CODE BLOCK */
+
+            const codeBlock =
+                document.createElement("div");
+
+            codeBlock.className =
+                "editor-code-block";
+
+
+            /* HEADER */
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "editor-code-header";
+
+
+            const languageSpan =
+                document.createElement("span");
+
+            languageSpan.className =
+                "editor-code-language";
+
+            languageSpan.textContent =
+                language;
+
+
+            const icon =
+                document.createElement("span");
+
+            icon.textContent =
+                "</>";
+
+
+            header.appendChild(
+                languageSpan
+            );
+
+            header.appendChild(
+                icon
+            );
+
+
+            /* PRE */
+
+            const pre =
+                document.createElement("pre");
+
+
+            const codeElement =
+                document.createElement("code");
+
+
+            /*
+                textContent is important.
+                Code HTML execute nahi karega.
+            */
+
+            codeElement.textContent =
+                code;
+
+
+            pre.appendChild(
+                codeElement
+            );
+
+
+            codeBlock.appendChild(
+                header
+            );
+
+            codeBlock.appendChild(
+                pre
+            );
+
+
+            /* ADD TO EDITOR */
+
+            editor.appendChild(
+                codeBlock
+            );
+
+
+            /* PARAGRAPH AFTER CODE */
+
+            const paragraph =
+                document.createElement("p");
+
+            paragraph.innerHTML =
+                "<br>";
+
+
+            editor.appendChild(
+                paragraph
+            );
+
+
+            updateHiddenContent();
+
+
+            closeModal();
+
+
+            /* CURSOR END */
+
+            editor.focus();
+
+            const range =
+                document.createRange();
+
+            range.selectNodeContents(editor);
+
+            range.collapse(false);
+
+
+            const selection =
+                window.getSelection();
+
+            selection.removeAllRanges();
+
+            selection.addRange(range);
+
+        }
+    );
+
+
+    /* ==========================================
+       NORMAL TEXT
+    ========================================== */
+
+    editor.addEventListener(
+        "input",
+        function () {
+
+            updateHiddenContent();
+
+        }
+    );
+
+
+    /* ==========================================
+       PASTE NORMAL TEXT
+    ========================================== */
+
+    editor.addEventListener(
+        "paste",
+        function (event) {
+
+            const selection =
+                window.getSelection();
+
+            const node =
+                selection.anchorNode;
+
+
+            const insideCode =
+                node &&
+                node.parentElement &&
+                node.parentElement.closest(
+                    ".editor-code-block"
+                );
+
+
+            if (insideCode) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            const text =
+                event.clipboardData.getData(
+                    "text/plain"
+                );
+
+
+            document.execCommand(
+                "insertText",
+                false,
+                text
+            );
+
+
+            updateHiddenContent();
+
+        }
+    );
+
+
+    /* ==========================================
+       IMAGE PREVIEW
+    ========================================== */
+
+    const imageInput =
+        document.getElementById("image");
+
+    const previewContainer =
+        document.getElementById(
+            "imagePreviewContainer"
+        );
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+    const removeImage =
+        document.getElementById(
+            "removeImage"
+        );
+
+
+    imageInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                this.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            if (!file.type.startsWith("image/")) {
+
+                alert(
+                    "Please select a valid image."
+                );
+
+                this.value = "";
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function (event) {
+
+                    preview.src =
+                        event.target.result;
+
+                    previewContainer.classList.add(
+                        "show"
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+    /* REMOVE IMAGE */
+
+    removeImage.addEventListener(
+        "click",
+        function () {
+
+            imageInput.value = "";
+
+            preview.src = "";
+
+            previewContainer.classList.remove(
+                "show"
+            );
+
+        }
+    );
+
+
+    /* ==========================================
+       FORM SUBMIT
+    ========================================== */
+
+    const form =
+        document.getElementById(
+            "createBlogForm"
+        );
+
+    const publishButton =
+        document.getElementById(
+            "publishButton"
+        );
+
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+
+            /* SAVE EDITOR CONTENT */
+
+            updateHiddenContent();
+
+
+            /* EMPTY CHECK */
+
+            if (
+                !editor.innerText.trim() &&
+                !editor.querySelector(
+                    ".editor-code-block"
+                )
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please write some article content."
+                );
+
+                editor.focus();
+
+                return;
+
+            }
+
+
+            publishButton.disabled =
+                true;
+
+            publishButton.innerHTML =
+                "Publishing...";
+
+        }
+    );
+
+});
+
+</script>
+
+
+{% endblock %}

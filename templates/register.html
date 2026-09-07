@@ -1,0 +1,788 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Programming Blog</title>
+
+    <!-- ================= BOOTSTRAP ================= -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5,
+                    #7c3aed
+                );
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           AUTH CARD
+        ===================================================== */
+
+        .auth-card {
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background: #ffffff;
+
+            border-radius: 24px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.25);
+
+            animation:
+                cardAppear 0.5s ease;
+        }
+
+
+        @keyframes cardAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.98);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #2563eb;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =====================================================
+           SUBTITLE
+        ===================================================== */
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #64748b;
+
+            margin-bottom: 30px;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           FORM LABEL
+        ===================================================== */
+
+        .form-label {
+
+            font-weight: 600;
+
+            color: #334155;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* =====================================================
+           FORM CONTROL
+        ===================================================== */
+
+        .form-control {
+
+            padding: 13px 14px;
+
+            border-radius: 12px;
+
+            border: 1px solid #cbd5e1;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .form-control:hover {
+
+            border-color: #94a3b8;
+        }
+
+
+        .form-control:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(37, 99, 235, 0.12);
+        }
+
+
+        /* =====================================================
+           VALIDATION
+        ===================================================== */
+
+        .form-control.valid {
+
+            border-color: #16a34a;
+        }
+
+
+        .form-control.invalid {
+
+            border-color: #dc2626;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(220, 38, 38, 0.08);
+        }
+
+
+        .password-error {
+
+            display: none;
+
+            color: #dc2626;
+
+            font-size: 13px;
+
+            margin-top: 6px;
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+        ===================================================== */
+
+        .btn-register {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-weight: 700;
+
+            margin-top: 10px;
+
+            cursor: pointer;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .btn-register:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(37, 99, 235, 0.25);
+        }
+
+
+        .btn-register:active {
+
+            transform:
+                scale(0.98);
+        }
+
+
+        .btn-register:disabled {
+
+            opacity: 0.75;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           LOGIN LINK
+        ===================================================== */
+
+        .login-link {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        .login-link a {
+
+            color: #2563eb;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+
+        .login-link a:hover {
+
+            text-decoration: underline;
+
+            color: #174ea6;
+        }
+
+
+        /* =====================================================
+           ALERT
+        ===================================================== */
+
+        .alert {
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            border: none;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           PASSWORD HINT
+        ===================================================== */
+
+        .password-hint {
+
+            color: #94a3b8;
+
+            font-size: 12px;
+
+            margin-top: 6px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 576px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+
+            .auth-card {
+
+                padding: 30px 22px;
+
+                border-radius: 20px;
+            }
+
+
+            .logo {
+
+                font-size: 26px;
+            }
+
+
+            .subtitle {
+
+                font-size: 14px;
+
+                margin-bottom: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     REGISTER CARD
+===================================================== -->
+
+<div class="auth-card">
+
+
+    <!-- ================= LOGO ================= -->
+
+    <div class="logo">
+
+        💻 Programming Blog
+
+    </div>
+
+
+    <!-- ================= SUBTITLE ================= -->
+
+    <p class="subtitle">
+
+        Create your account and start learning 🚀
+
+    </p>
+
+
+    <!-- =================================================
+         DJANGO MESSAGES
+    ================================================= -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="alert alert-danger"
+                role="alert"
+            >
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =================================================
+         REGISTER FORM
+    ================================================= -->
+
+    <form
+        method="POST"
+        id="registerForm"
+        novalidate
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ================= USERNAME ================= -->
+
+        <div class="mb-3">
+
+            <label
+                for="username"
+                class="form-label"
+            >
+
+                Username
+
+            </label>
+
+
+            <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+                placeholder="Enter username"
+                minlength="3"
+                maxlength="150"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+
+        <!-- ================= EMAIL ================= -->
+
+        <div class="mb-3">
+
+            <label
+                for="email"
+                class="form-label"
+            >
+
+                Email
+
+            </label>
+
+
+            <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- ================= PASSWORD ================= -->
+
+        <div class="mb-3">
+
+            <label
+                for="password"
+                class="form-label"
+            >
+
+                Password
+
+            </label>
+
+
+            <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Create password"
+                minlength="6"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <div class="password-hint">
+
+                Minimum 6 characters
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CONFIRM PASSWORD ================= -->
+
+        <div class="mb-3">
+
+            <label
+                for="confirm_password"
+                class="form-label"
+            >
+
+                Confirm Password
+
+            </label>
+
+
+            <input
+                type="password"
+                name="confirm_password"
+                id="confirm_password"
+                class="form-control"
+                placeholder="Confirm password"
+                minlength="6"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <div
+                id="passwordError"
+                class="password-error"
+            >
+
+                Passwords do not match.
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             REGISTER BUTTON
+        ================================================= -->
+
+        <button
+            type="submit"
+            class="btn-register"
+            id="registerButton"
+        >
+
+            Create Account 🚀
+
+        </button>
+
+
+    </form>
+
+
+    <!-- =================================================
+         LOGIN
+    ================================================= -->
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="{% url 'login' %}">
+
+            Sign In
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const form =
+            document.getElementById(
+                "registerForm"
+            );
+
+
+        const password =
+            document.getElementById(
+                "password"
+            );
+
+
+        const confirmPassword =
+            document.getElementById(
+                "confirm_password"
+            );
+
+
+        const passwordError =
+            document.getElementById(
+                "passwordError"
+            );
+
+
+        const registerButton =
+            document.getElementById(
+                "registerButton"
+            );
+
+
+        /* =================================================
+           PASSWORD MATCH
+        ================================================= */
+
+        function checkPasswords() {
+
+            if (
+                confirmPassword.value === ""
+            ) {
+
+                confirmPassword.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                passwordError.style.display =
+                    "none";
+
+                return true;
+            }
+
+
+            if (
+                password.value ===
+                confirmPassword.value
+            ) {
+
+                confirmPassword.classList.remove(
+                    "invalid"
+                );
+
+                confirmPassword.classList.add(
+                    "valid"
+                );
+
+                passwordError.style.display =
+                    "none";
+
+                return true;
+
+            } else {
+
+                confirmPassword.classList.remove(
+                    "valid"
+                );
+
+                confirmPassword.classList.add(
+                    "invalid"
+                );
+
+                passwordError.style.display =
+                    "block";
+
+                return false;
+            }
+        }
+
+
+        password.addEventListener(
+            "input",
+            checkPasswords
+        );
+
+
+        confirmPassword.addEventListener(
+            "input",
+            checkPasswords
+        );
+
+
+        /* =================================================
+           FORM SUBMIT
+        ================================================= */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+
+                /* Browser validation */
+
+                if (
+                    !form.checkValidity()
+                ) {
+
+                    event.preventDefault();
+
+                    form.reportValidity();
+
+                    return;
+                }
+
+
+                /* Password validation */
+
+                if (
+                    !checkPasswords()
+                ) {
+
+                    event.preventDefault();
+
+                    confirmPassword.focus();
+
+                    return;
+                }
+
+
+                /* Prevent double click */
+
+                registerButton.disabled =
+                    true;
+
+
+                registerButton.innerHTML =
+                    "Creating Account...";
+
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

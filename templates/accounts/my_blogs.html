@@ -1,0 +1,717 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Blogs - {{ request.user.username }}
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* ============================= */
+/* PAGE */
+/* ============================= */
+
+.my-blogs-page {
+    min-height: 75vh;
+    padding: 50px 0;
+    background: #ffffff;
+}
+
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+.blogs-header {
+    background: linear-gradient(135deg, #f8f9ff, #ffffff);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 35px;
+    border: 1px solid #eeeeee;
+}
+
+.blogs-header h2 {
+    font-weight: 700;
+    color: #202338;
+}
+
+.blogs-header p {
+    margin-bottom: 0;
+}
+
+
+/* ============================= */
+/* CREATE BUTTON */
+/* ============================= */
+
+.create-blog-btn {
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-weight: 600;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.create-blog-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ============================= */
+/* BLOG CARD */
+/* ============================= */
+
+.blog-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* ============================= */
+/* BLOG IMAGE */
+/* ============================= */
+
+.blog-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+}
+
+.no-image {
+    height: 210px;
+
+    background: linear-gradient(
+        135deg,
+        #f1f3f5,
+        #e9ecef
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+}
+
+
+/* ============================= */
+/* CATEGORY */
+/* ============================= */
+
+.blog-category {
+    display: inline-block;
+
+    background: #eef2ff;
+    color: #0d6efd;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    margin-bottom: 12px;
+
+    max-width: 100%;
+    width: fit-content;
+}
+
+
+/* ============================= */
+/* TITLE */
+/* ============================= */
+
+.blog-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #202338;
+
+    overflow-wrap: anywhere;
+}
+
+.blog-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.blog-title a:hover {
+    color: #0d6efd;
+}
+
+
+/* ============================= */
+/* DESCRIPTION */
+/* ============================= */
+
+.blog-description {
+    color: #6c757d;
+    line-height: 1.7;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================= */
+/* META */
+/* ============================= */
+
+.blog-meta {
+    font-size: 13px;
+    color: #8a8f98;
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.blog-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.view-btn,
+.delete-btn {
+    border-radius: 9px;
+    font-weight: 600;
+    padding: 9px 14px;
+    transition: 0.3s;
+}
+
+.view-btn:hover,
+.delete-btn:hover {
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.delete-btn:hover {
+    color: #ffffff;
+    background: #dc3545;
+}
+
+
+/* ============================= */
+/* EMPTY STATE */
+/* ============================= */
+
+.empty-state {
+    background: #f8f9fa;
+    border: 1px dashed #d5d9df;
+    border-radius: 20px;
+    padding: 70px 20px;
+}
+
+.empty-icon {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.empty-state h4 {
+    font-weight: 700;
+    color: #202338;
+}
+
+.empty-state p {
+    max-width: 500px;
+    margin: 0 auto 25px;
+}
+
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+
+@media (max-width: 991px) {
+
+    .my-blogs-page {
+        padding: 40px 0;
+    }
+
+    .blogs-header {
+        padding: 25px;
+    }
+
+    .blog-image,
+    .no-image {
+        height: 200px;
+    }
+
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    .my-blogs-page {
+        padding: 30px 0;
+    }
+
+    .blogs-header {
+        padding: 22px 18px;
+        border-radius: 16px;
+        margin-bottom: 28px;
+    }
+
+    .blogs-header .row {
+        text-align: center;
+    }
+
+    .blogs-header h2 {
+        font-size: 28px;
+    }
+
+    .blogs-header p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .create-blog-btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+    }
+
+    .blog-image,
+    .no-image {
+        height: 200px;
+    }
+
+    .blog-card {
+        border-radius: 15px;
+    }
+
+    .blog-card .card-body {
+        padding: 20px !important;
+    }
+
+    .blog-title {
+        font-size: 19px;
+    }
+
+    .blog-description {
+        font-size: 14px;
+    }
+
+    .blog-meta {
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .blog-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .blog-actions a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .empty-state {
+        padding: 55px 18px;
+    }
+
+}
+
+
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
+
+@media (max-width: 480px) {
+
+    .my-blogs-page {
+        padding: 20px 0;
+    }
+
+    .blogs-header {
+        padding: 20px 15px;
+        border-radius: 14px;
+    }
+
+    .blogs-header h2 {
+        font-size: 24px;
+    }
+
+    .blogs-header p {
+        font-size: 13px;
+    }
+
+    .create-blog-btn {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    .blog-image,
+    .no-image {
+        height: 180px;
+    }
+
+    .blog-card .card-body {
+        padding: 17px !important;
+    }
+
+    .blog-category {
+        font-size: 11px;
+        padding: 5px 9px;
+    }
+
+    .blog-title {
+        font-size: 18px;
+    }
+
+    .blog-description {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .blog-meta {
+        font-size: 11px;
+    }
+
+    .view-btn,
+    .delete-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .empty-state {
+        padding: 45px 15px;
+    }
+
+    .empty-icon {
+        font-size: 55px;
+    }
+
+}
+
+
+/* ============================= */
+/* VERY SMALL PHONES */
+/* ============================= */
+
+@media (max-width: 360px) {
+
+    .blogs-header h2 {
+        font-size: 22px;
+    }
+
+    .blog-image,
+    .no-image {
+        height: 160px;
+    }
+
+    .blog-card .card-body {
+        padding: 15px !important;
+    }
+
+    .blog-title {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+
+<div class="my-blogs-page">
+
+    <div class="container">
+
+
+        <!-- ===================================== -->
+        <!-- HEADER -->
+        <!-- ===================================== -->
+
+        <div class="blogs-header shadow-sm">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-8">
+
+                    <div class="text-primary fw-semibold small mb-2">
+                        📝 YOUR CONTENT
+                    </div>
+
+                    <h2 class="mb-2">
+                        My Blogs
+                    </h2>
+
+                    <p class="text-muted">
+                        Manage and view all the blog posts you've created.
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-4 text-md-end">
+
+                    <a
+                        href="{% url 'blog:create_blog' %}"
+                        class="btn btn-primary create-blog-btn">
+
+                        ✍️ Create New Blog
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- BLOG COUNT -->
+        <!-- ===================================== -->
+
+        {% if blogs %}
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        Your Articles
+                    </h5>
+
+                    <p class="text-muted small mb-0">
+
+                        {{ blogs|length }}
+
+                        {% if blogs|length == 1 %}
+                            article
+                        {% else %}
+                            articles
+                        {% endif %}
+
+                        published by you.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ===================================== -->
+            <!-- BLOG GRID -->
+            <!-- ===================================== -->
+
+            <div class="row g-4">
+
+
+                {% for blog in blogs %}
+
+                    <div class="col-md-6 col-lg-4">
+
+
+                        <article class="card blog-card h-100 shadow-sm">
+
+
+                            <!-- ============================= -->
+                            <!-- IMAGE -->
+                            <!-- ============================= -->
+
+                            {% if blog.image %}
+
+                                <img
+                                    src="{{ blog.image.url }}"
+                                    alt="{{ blog.title }}"
+                                    class="blog-image">
+
+                            {% else %}
+
+                                <div class="no-image">
+                                    💻
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- ============================= -->
+                            <!-- CARD BODY -->
+                            <!-- ============================= -->
+
+                            <div class="card-body p-4 d-flex flex-column">
+
+
+                                <!-- CATEGORY -->
+
+                                {% if blog.category %}
+
+                                    <span class="blog-category">
+
+                                        {{ blog.category }}
+
+                                    </span>
+
+                                {% endif %}
+
+
+
+                                <!-- TITLE -->
+
+                                <h3 class="blog-title mb-2">
+
+                                    <a
+                                        href="{% url 'blog:blog_detail' blog.slug %}">
+
+                                        {{ blog.title }}
+
+                                    </a>
+
+                                </h3>
+
+
+
+                                <!-- DESCRIPTION -->
+
+                                <p class="blog-description mb-3">
+
+                                    {% if blog.short_description %}
+
+                                        {{ blog.short_description|truncatewords:20 }}
+
+                                    {% else %}
+
+                                        {{ blog.content|striptags|truncatewords:20 }}
+
+                                    {% endif %}
+
+                                </p>
+
+
+
+                                <!-- META -->
+
+                                <div class="blog-meta mb-4">
+
+                                    👤 {{ blog.author }}
+
+                                    &nbsp; • &nbsp;
+
+                                    📅 {{ blog.created_at|date:"d M Y" }}
+
+                                </div>
+
+
+
+                                <!-- ============================= -->
+                                <!-- ACTION BUTTONS -->
+                                <!-- ============================= -->
+
+                                <div class="blog-actions mt-auto">
+
+
+                                    <!-- READ ARTICLE -->
+
+                                    <a
+                                        href="{% url 'blog:blog_detail' blog.slug %}"
+                                        class="btn btn-outline-primary view-btn flex-grow-1">
+
+                                        Read Article →
+
+                                    </a>
+
+
+                                    <!-- DELETE ARTICLE -->
+
+                                    <a
+                                        href="{% url 'blog:delete_blog' blog.id %}"
+                                        class="btn btn-outline-danger delete-btn flex-grow-1">
+
+                                        🗑️ Delete
+
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+
+                        </article>
+
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="empty-state text-center shadow-sm">
+
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+
+                <h4 class="mb-2">
+                    No Blogs Yet
+                </h4>
+
+
+                <p class="text-muted">
+
+                    You haven't written any blog posts yet.
+                    Start sharing your knowledge and create
+                    your first article today!
+
+                </p>
+
+
+                <a
+                    href="{% url 'blog:create_blog' %}"
+                    class="btn btn-primary px-4 py-2 fw-semibold">
+
+                    ✍️ Write Your First Blog
+
+                </a>
+
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}
